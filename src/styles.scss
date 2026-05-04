@@ -54,10 +54,8 @@
   /* ── Role Colors ────────────────────────────────── */
   --role-patient-bg: #e3f2fd;
   --role-patient-text: #1565c0;
-
---role-doctor-bg: var(--brand-soft);
---role-doctor-text: var(--brand-dark);
-  
+  --role-doctor-bg: var(--brand-soft);
+  --role-doctor-text: var(--brand-dark);
   --role-admin-bg: #fce4ec;
   --role-admin-text: #b71c1c;
 
@@ -136,7 +134,7 @@ html {
    SHARED BUTTONS
 ══════════════════════════════════════════════════════ */
 
-/* Green — patient / global default */
+/* Green — patient portal */
 .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -167,7 +165,7 @@ html {
   }
 }
 
-/* Indigo — doctor schedule / portal actions */
+/* Indigo — doctor portal */
 .btn-brand {
   @extend .btn-primary;
   border-color: var(--brand);
@@ -181,6 +179,39 @@ html {
   }
 }
 
+/* Neutral outline — secondary actions */
+.btn-secondary-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 38px;
+  padding: 0 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-strong);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  text-decoration: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease, color 0.18s ease;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+    border-color: var(--brand);
+    color: var(--brand);
+    background: var(--brand-bg);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+/* Size modifier */
 .btn-large {
   height: 48px;
   padding: 0 24px;
@@ -188,7 +219,7 @@ html {
   border-radius: var(--radius-lg);
 }
 
-/* Icon-only delete button */
+/* Icon-only delete */
 .btn-icon-delete {
   width: 34px;
   height: 34px;
@@ -217,7 +248,6 @@ html {
   box-shadow: var(--shadow-sm);
 }
 
-/* Section card — used in schedule + appointments + profile */
 .section-card {
   padding: 20px;
   border-radius: var(--radius-2xl);
