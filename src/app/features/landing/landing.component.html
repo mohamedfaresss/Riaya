@@ -1,0 +1,290 @@
+<div class="landing-root">
+
+  <!-- ═══════════════════════════════ NAVBAR ═══════════════════════════════ -->
+  <nav class="navbar" [class.scrolled]="isScrolled">
+    <div class="nav-inner">
+      <a class="nav-brand" routerLink="/">
+        <span class="brand-icon">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <rect width="28" height="28" rx="8" fill="#2563EB"/>
+            <path d="M7 14C7 10.134 10.134 7 14 7s7 3.134 7 7-3.134 7-7 7-7-3.134-7-7z" fill="white" fill-opacity="0.2"/>
+            <path d="M14 9v5l3 3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="14" cy="14" r="2" fill="white"/>
+          </svg>
+        </span>
+        <span class="brand-text">Riaya</span>
+      </a>
+
+      <div class="nav-links">
+        <a class="nav-link" href="#features">Features</a>
+        <a class="nav-link" href="#how-it-works">How it works</a>
+        <a class="nav-link" href="#about">About</a>
+      </div>
+
+      <div class="nav-ctas">
+        <a class="btn-ghost" routerLink="/auth/login">Login</a>
+        <a class="btn-primary" routerLink="/auth/register">Register</a>
+      </div>
+
+      <button class="hamburger" (click)="toggleMenu()" [class.open]="mobileMenuOpen" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <!-- Mobile menu -->
+    <div class="mobile-menu" [class.open]="mobileMenuOpen">
+      <a class="mob-link" href="#features" (click)="closeMenu()">Features</a>
+      <a class="mob-link" href="#how-it-works" (click)="closeMenu()">How it works</a>
+      <a class="mob-link" href="#about" (click)="closeMenu()">About</a>
+      <div class="mob-ctas">
+        <a class="btn-ghost w-full" routerLink="/auth/login" (click)="closeMenu()">Login</a>
+        <a class="btn-primary w-full" routerLink="/auth/register" (click)="closeMenu()">Register</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════ HERO ════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-glow"></div>
+
+    <div class="container hero-inner">
+      <div class="hero-content reveal">
+        <div class="eyebrow">Healthcare Operations Platform</div>
+        <h1 class="hero-headline">
+          Run your clinic faster.<br>
+          <span class="headline-accent">Deliver a smoother</span><br>
+          patient experience.
+        </h1>
+        <p class="hero-sub">
+          Riaya unifies scheduling, bookings, and role-based care workflows
+          in one secure, intuitive workspace built for modern clinics.
+        </p>
+        <div class="hero-cta-group">
+          <a class="btn-primary btn-lg pulse-once" routerLink="/auth/register">Get started free</a>
+          <a class="btn-ghost btn-lg" routerLink="/auth/login">Login to your clinic</a>
+        </div>
+        <p class="trust-micro">
+          <span class="trust-dot"></span>
+          Built for clinics that value speed, consistency, and dependable operations.
+        </p>
+      </div>
+
+      <div class="hero-visual reveal reveal-delay">
+        <div class="dashboard-preview">
+          <!-- Header -->
+          <div class="dp-header">
+            <div class="dp-title">Today's Overview</div>
+            <div class="dp-date">{{ currentYear | date:'EEE, MMM d' }}</div>
+          </div>
+
+          <!-- Stats row -->
+          <div class="dp-stats">
+            <div class="dp-stat">
+              <div class="stat-value">24</div>
+              <div class="stat-label">Appointments</div>
+            </div>
+            <div class="dp-stat">
+              <div class="stat-value" style="color: var(--status-confirmed-text)">18</div>
+              <div class="stat-label">Confirmed</div>
+            </div>
+            <div class="dp-stat">
+              <div class="stat-value" style="color: var(--status-pending-text)">6</div>
+              <div class="stat-label">Pending</div>
+            </div>
+          </div>
+
+          <!-- Bookings list -->
+          <div class="dp-section-label">Upcoming Bookings</div>
+          <div class="dp-bookings">
+            <div class="dp-booking">
+              <div class="dp-avatar dp-avatar--blue">AM</div>
+              <div class="dp-booking-info">
+                <div class="dp-booking-name">Ahmed Mohamed</div>
+                <div class="dp-booking-time">09:00 AM · Cardiology</div>
+              </div>
+              <span class="status-badge status--confirmed">Confirmed</span>
+            </div>
+            <div class="dp-booking">
+              <div class="dp-avatar dp-avatar--purple">SF</div>
+              <div class="dp-booking-info">
+                <div class="dp-booking-name">Sara Farouk</div>
+                <div class="dp-booking-time">10:30 AM · General</div>
+              </div>
+              <span class="status-badge status--pending">Pending</span>
+            </div>
+            <div class="dp-booking">
+              <div class="dp-avatar dp-avatar--teal">MH</div>
+              <div class="dp-booking-info">
+                <div class="dp-booking-name">Mahmoud Hassan</div>
+                <div class="dp-booking-time">11:15 AM · Pediatrics</div>
+              </div>
+              <span class="status-badge status--confirmed">Confirmed</span>
+            </div>
+          </div>
+
+          <!-- Doctor availability -->
+          <div class="dp-section-label">Available Doctors</div>
+          <div class="dp-doctors">
+            <div class="doctor-chip">
+              <span class="avail-dot avail--on"></span>
+              Dr. Khalil
+            </div>
+            <div class="doctor-chip">
+              <span class="avail-dot avail--on"></span>
+              Dr. Nour
+            </div>
+            <div class="doctor-chip">
+              <span class="avail-dot avail--off"></span>
+              Dr. Salem
+            </div>
+          </div>
+        </div>
+
+        <!-- Floating badges -->
+        <div class="float-badge float-badge--1">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="7" fill="#16A34A"/><path d="M4 7l2 2 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Booking confirmed
+        </div>
+        <div class="float-badge float-badge--2">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="7" fill="#2563EB"/><path d="M7 4v3l2 2" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+          3 slots available
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════════════════════════ FEATURES ═══════════════════════════════ -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="eyebrow">What Riaya does</div>
+        <h2 class="section-title">Everything your clinic needs,<br>nothing it doesn't.</h2>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card reveal" *ngFor="let f of features; let i = index" [style.--delay]="i * 60 + 'ms'">
+          <div class="feature-icon-wrap">
+            <span class="material-icons feature-icon">{{ f.icon }}</span>
+          </div>
+          <h3 class="feature-title">{{ f.title }}</h3>
+          <p class="feature-desc">{{ f.desc }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════ HOW IT WORKS ════════════════════════════ -->
+  <section class="section section--alt" id="how-it-works">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="eyebrow">Simple by design</div>
+        <h2 class="section-title">Up and running in minutes.</h2>
+      </div>
+
+      <div class="steps-row">
+        <div class="step-card reveal" *ngFor="let s of steps; let i = index" [style.--delay]="i * 80 + 'ms'">
+          <div class="step-num">{{ s.num }}</div>
+          <h3 class="step-title">{{ s.title }}</h3>
+          <p class="step-desc">{{ s.desc }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════════════════════════ TRUST / CTA ═══════════════════════════ -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="trust-grid reveal">
+        <div class="trust-left">
+          <div class="eyebrow">Why Riaya</div>
+          <h2 class="section-title" style="margin-bottom: 2rem;">Clinics run better<br>when the tools do too.</h2>
+          <ul class="trust-bullets">
+            <li>
+              <span class="bullet-icon">
+                <span class="material-icons">bolt</span>
+              </span>
+              <div>
+                <strong>Simple onboarding</strong>
+                <p>Teams adopt quickly — no training sessions or complex setup required.</p>
+              </div>
+            </li>
+            <li>
+              <span class="bullet-icon">
+                <span class="material-icons">sync_alt</span>
+              </span>
+              <div>
+                <strong>Faster coordination</strong>
+                <p>Less manual back-and-forth. Every role sees exactly what they need.</p>
+              </div>
+            </li>
+            <li>
+              <span class="bullet-icon">
+                <span class="material-icons">verified</span>
+              </span>
+              <div>
+                <strong>Reliable operations</strong>
+                <p>Clearer workflows, fewer booking errors, and consistent patient experiences.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="trust-right">
+          <div class="cta-card">
+            <div class="cta-card-label">For Patients, Doctors &amp; Admins</div>
+            <h3 class="cta-card-title">Ready to simplify your clinic's workflow?</h3>
+            <p class="cta-card-sub">No setup complexity. Start in minutes and see the difference immediately.</p>
+            <a class="btn-primary btn-lg cta-card-btn" routerLink="/auth/register">Create your account</a>
+            <a class="btn-ghost btn-lg" routerLink="/auth/login" style="width:100%; text-align:center; display:block;">Already have an account? Login</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════ FOOTER ══════════════════════════════ -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a class="nav-brand" routerLink="/">
+          <span class="brand-icon">
+            <svg width="24" height="24" viewBox="0 0 28 28" fill="none">
+              <rect width="28" height="28" rx="8" fill="#2563EB"/>
+              <path d="M14 9v5l3 3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="14" cy="14" r="2" fill="white"/>
+            </svg>
+          </span>
+          <span class="brand-text">Riaya</span>
+        </a>
+        <p class="footer-tagline">Healthcare operations, simplified.</p>
+      </div>
+
+      <div class="footer-links">
+        <div class="footer-col">
+          <div class="footer-col-title">Product</div>
+          <a href="#features" class="footer-link">Features</a>
+          <a href="#how-it-works" class="footer-link">How it works</a>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Access</div>
+          <a routerLink="/auth/login" class="footer-link">Login</a>
+          <a routerLink="/auth/register" class="footer-link">Register</a>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Legal</div>
+          <a href="#" class="footer-link">Privacy Policy</a>
+          <a href="#" class="footer-link">Terms of Use</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">
+        <span>© {{ currentYear }} Riaya. All rights reserved.</span>
+        <a routerLink="/auth/register" class="footer-cta-link">Create your account →</a>
+      </div>
+    </div>
+  </footer>
+
+</div>

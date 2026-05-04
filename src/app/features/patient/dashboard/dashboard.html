@@ -1,0 +1,173 @@
+<section class="dashboard-page">
+  <div class="dashboard-layout">
+    <div class="dashboard-main">
+      <div class="hero-card">
+        <div class="hero-copy">
+          <span class="eyebrow">Patient portal</span>
+
+          <h1 class="hero-title">Welcome back, {{ userName || 'there' }}</h1>
+
+          <p class="hero-subtitle">
+            Track appointments, review your activity, and book your next visit with confidence.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn-primary" routerLink="/patient/doctors">
+              <span class="material-icons action-icon" aria-hidden="true">event_available</span>
+              Book Appointment
+            </a>
+            <a class="btn-secondary" routerLink="/patient/bookings">
+              <span class="material-icons action-icon" aria-hidden="true">calendar_month</span>
+              View My Bookings
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════ OVERVIEW CARD ═══════════════════════════════ -->
+      <div class="dashboard-preview">
+        <!-- Header -->
+        <div class="dp-header">
+          <div class="dp-title">Your Activity</div>
+          <div class="dp-date">{{ getTodayDate() }}</div>
+        </div>
+
+        <!-- Stats row -->
+        <div class="dp-stats">
+          <div class="dp-stat">
+            <div class="stat-value">{{ bookings.length }}</div>
+            <div class="stat-label">Total</div>
+          </div>
+          <div class="dp-stat">
+            <div class="stat-value" style="color: var(--status-confirmed-text)">{{ confirmedCount }}</div>
+            <div class="stat-label">Confirmed</div>
+          </div>
+          <div class="dp-stat">
+            <div class="stat-value" style="color: var(--status-pending-text)">{{ pendingCount }}</div>
+            <div class="stat-label">Pending</div>
+          </div>
+        </div>
+      </div>
+
+      <section class="section-card">
+        <div class="section-header">
+          <div>
+            <span class="section-kicker">Activity</span>
+            <h2 class="section-title">Recent Bookings</h2>
+            <p class="section-sub">
+              Completed and cancelled appointments are kept here for your records.
+            </p>
+          </div>
+          <a class="link-btn" routerLink="/patient/bookings">
+            <span class="material-icons link-btn__icon" aria-hidden="true">east</span>
+            View all
+          </a>
+        </div>
+
+        @if (loading) {
+          <div class="state-center">
+            <mat-spinner diameter="34"></mat-spinner>
+          </div>
+        } @else if (bookings.length === 0) {
+          <div class="empty-state">
+            <div class="empty-icon">
+              <span class="material-icons" aria-hidden="true">event_busy</span>
+            </div>
+            <p class="empty-title">No bookings yet</p>
+            <p class="empty-sub">Start by finding the right doctor and booking your first consultation.</p>
+            <a class="btn-primary" routerLink="/patient/doctors">
+              <span class="material-icons action-icon" aria-hidden="true">person_search</span>
+              Find a Doctor
+            </a>
+          </div>
+        } @else {
+          <div class="bookings-list">
+            @for (booking of bookings.slice(0, 5); track booking.id) {
+              <article class="booking-row">
+                <div class="booking-leading">
+                  <span class="booking-leading__icon" aria-hidden="true">
+                    <span class="material-icons">medical_services</span>
+                  </span>
+
+                  <div class="booking-info">
+                    <div class="booking-info__top">
+                      <h3 class="booking-doctor">Dr. {{ booking.doctorName }}</h3>
+                      <span class="booking-subtitle">Appointment</span>
+                    </div>
+
+                    <div class="booking-meta">
+                      <span class="booking-meta__item">
+                        <span class="material-icons" aria-hidden="true">calendar_today</span>
+                        {{ booking.startAtUtc | date:'EEE, MMM d' }} · {{ booking.startAtUtc | date:'h:mm a' }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="booking-actions">
+                  <span class="status-pill status-pill--{{ getStatusClass(booking.status) }}">
+                    {{ getStatusName(booking.status) }}
+                  </span>
+
+                  <a class="booking-action" routerLink="/patient/bookings">
+                    <span class="material-icons booking-action__icon" aria-hidden="true">visibility</span>
+                    Details
+                  </a>
+                </div>
+              </article>
+            }
+          </div>
+        }
+      </section>
+    </div>
+
+    <aside class="dashboard-sidebar">
+      <a class="profile-card" routerLink="/patient/profile" aria-label="View Profile">
+        <div class="profile-card__top">
+          <span class="profile-avatar">
+            {{ (userName || 'P').charAt(0).toUpperCase() }}
+          </span>
+          <span class="profile-card__link">
+            <span class="material-icons" aria-hidden="true">person</span>
+            View Profile
+          </span>
+        </div>
+
+        <div class="profile-card__body">
+          <p class="sidebar-label">Your profile</p>
+          <h2>{{ userName || 'Patient' }}</h2>
+          <p>Access your account details, preferences, and personal information.</p>
+        </div>
+      </a>
+
+      <section class="sidebar-card">
+        <div class="sidebar-card__header">
+          <p class="sidebar-label">Quick actions</p>
+          <h3>Shortcuts</h3>
+        </div>
+
+        <div class="quick-actions">
+          <a class="quick-action" routerLink="/patient/doctors">
+            <span class="quick-action__icon">
+              <span class="material-icons" aria-hidden="true">medical_services</span>
+            </span>
+            <span class="quick-action__content">
+              <span class="quick-action__title">Find Doctor</span>
+              <span class="quick-action__meta">Browse specialists and book a visit.</span>
+            </span>
+          </a>
+
+          <a class="quick-action" routerLink="/patient/bookings">
+            <span class="quick-action__icon">
+              <span class="material-icons" aria-hidden="true">event_available</span>
+            </span>
+            <span class="quick-action__content">
+              <span class="quick-action__title">My Bookings</span>
+              <span class="quick-action__meta">See upcoming appointments and past activity.</span>
+            </span>
+          </a>
+        </div>
+      </section>
+    </aside>
+  </div>
+</section>

@@ -1,0 +1,104 @@
+<section class="bookings-page">
+
+  <!-- ── Hero Card ─────────────────────────────────────────────────── -->
+  <div class="hero-card">
+    <div class="hero-copy">
+      <span class="eyebrow">ADMIN PORTAL</span>
+      <h1 class="hero-title">All Bookings</h1>
+      <p class="hero-subtitle">Monitor and update booking statuses across the clinic.</p>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="stat-value">{{ bookings.length }}</div>
+        <div class="stat-label">Total</div>
+      </div>
+      <div class="hero-stat hero-stat--pending">
+        <div class="stat-value">{{ pendingCount }}</div>
+        <div class="stat-label">Pending</div>
+      </div>
+      <div class="hero-stat hero-stat--confirmed">
+        <div class="stat-value">{{ confirmedCount }}</div>
+        <div class="stat-label">Confirmed</div>
+      </div>
+      <div class="hero-stat hero-stat--cancelled">
+        <div class="stat-value">{{ cancelledCount }}</div>
+        <div class="stat-label">Cancelled</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Bookings List Card ─────────────────────────────────────────── -->
+  <div class="section-card">
+    <div class="section-head bk-head">
+      <div>
+        <h3>Booking Records</h3>
+        <p class="section-sub">All patient bookings across the clinic, sorted by date.</p>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="filter-tabs">
+        @for (filter of filters; track filter) {
+          <button
+            type="button"
+            class="tab-btn"
+            [class.tab-btn--active]="activeFilter === filter"
+            (click)="setFilter(filter)">
+            {{ filter }}
+          </button>
+        }
+      </div>
+    </div>
+
+    @if (loading) {
+      <div class="loading-center"><mat-spinner diameter="32"></mat-spinner></div>
+
+    } @else if (filteredBookings.length === 0) {
+      <div class="empty-state">
+        <div class="empty-icon">
+          <span class="material-icons" aria-hidden="true">event_busy</span>
+        </div>
+        <p class="empty-text">No bookings match this filter.</p>
+      </div>
+
+    } @else {
+      <div class="bk-list">
+        @for (booking of filteredBookings; track booking.id) {
+          <article class="bk-row">
+
+            <!-- Avatar -->
+            <div class="avatar">{{ getInitials(booking.patientName) || 'P' }}</div>
+
+            <!-- Info -->
+            <div class="bk-info">
+              <p class="bk-name">{{ booking.patientName || '—' }}</p>
+              <p class="bk-meta">
+                <span class="material-icons bk-meta-icon" aria-hidden="true">person</span>
+                Dr. {{ booking.doctorName || '—' }}
+                &nbsp;·&nbsp;
+                <span class="material-icons bk-meta-icon" aria-hidden="true">calendar_today</span>
+                {{ booking.startAtUtc | date:'EEE, MMM d' }}
+                &nbsp;·&nbsp;
+                {{ booking.startAtUtc | date:'h:mm a' }} – {{ booking.endAtUtc | date:'h:mm a' }}
+              </p>
+              <p class="bk-reason">{{ booking.reason || 'General consultation' }}</p>
+            </div>
+
+            <!-- Status -->
+            <span class="status-pill status-pill--{{ getStatusClass(booking.status) }}">
+              {{ getStatusName(booking.status) }}
+            </span>
+
+            <!-- Actions (view-only for admin) -->
+            <div class="bk-actions">
+              <button type="button" class="action-btn action-btn--confirm" disabled>Confirm</button>
+              <button type="button" class="action-btn action-btn--cancel"  disabled>Cancel</button>
+            </div>
+
+          </article>
+        }
+      </div>
+    }
+  </div>
+
+</section>

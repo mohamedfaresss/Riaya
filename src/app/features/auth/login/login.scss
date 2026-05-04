@@ -1,0 +1,309 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+// ── Shell ──────────────────────────────────────────────────────────────────
+.auth-shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  font-family: 'Inter', sans-serif;
+}
+
+// ── Left panel ─────────────────────────────────────────────────────────────
+.auth-panel {
+  background: #0f172a;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 36px 40px;
+  position: relative;
+  overflow: hidden;
+
+  // Subtle dot grid
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+    background-size: 28px 28px;
+    pointer-events: none;
+  }
+
+  // Blue glow blob
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -80px;
+    left: -60px;
+    width: 320px;
+    height: 320px;
+    background: radial-gradient(circle, rgba(37,99,235,0.25) 0%, transparent 70%);
+    pointer-events: none;
+  }
+}
+
+.panel-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  z-index: 1;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+
+.panel-body {
+  z-index: 1;
+}
+
+.panel-quote {
+  font-size: 20px;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.9);
+  font-style: normal;
+  margin: 0 0 28px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+
+  &::before {
+    content: '"';
+    display: block;
+    font-size: 48px;
+    color: #2563EB;
+    line-height: 1;
+    margin-bottom: 8px;
+    font-family: Georgia, serif;
+  }
+}
+
+.panel-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.author-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2563EB, #7c3aed);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.02em;
+}
+
+.author-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.author-role {
+  font-size: 12px;
+  color: rgba(255,255,255,0.45);
+  margin-top: 1px;
+}
+
+.panel-footer {
+  font-size: 12px;
+  color: rgba(255,255,255,0.25);
+  z-index: 1;
+}
+
+// ── Right side ─────────────────────────────────────────────────────────────
+.auth-form-side {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 32px;
+  background: var(--bg-surface);
+  position: relative;
+}
+
+.auth-form-wrap {
+  width: 100%;
+  max-width: 380px;
+  position: relative;
+}
+
+// Top nav link (top-right)
+.top-nav-link {
+  position: absolute;
+  top: -32px;
+  right: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.15s;
+
+  strong { color: var(--text-primary); font-weight: 600; }
+  svg { opacity: 0.5; }
+
+  &:hover { color: var(--text-primary); svg { opacity: 1; } }
+}
+
+// Form logo + title
+.form-head { margin-bottom: 32px; }
+
+.form-logo {
+  margin-bottom: 20px;
+  display: inline-flex;
+}
+
+.form-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.025em;
+  margin: 0 0 6px;
+}
+
+.form-sub {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+// Field group
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 16px;
+}
+
+.field-full { width: 100%; }
+
+// Submit button — custom (not Material)
+.submit-btn {
+  width: 100%;
+  height: 46px;
+  background: #2563EB;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.18s, transform 0.15s, box-shadow 0.18s;
+  box-shadow: 0 1px 3px rgba(37,99,235,0.3), 0 4px 12px rgba(37,99,235,0.2);
+  margin-bottom: 24px;
+
+  mat-spinner { --mdc-circular-progress-active-indicator-color: #fff; }
+
+  &:hover:not([disabled]) {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(37,99,235,0.35), 0 8px 20px rgba(37,99,235,0.25);
+  }
+
+  &:active:not([disabled]) { transform: translateY(0); }
+
+  &[disabled] {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+// Error
+.form-error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: #DC2626;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+
+// Divider
+.form-divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  color: var(--text-secondary);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+
+  &::before, &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border-subtle);
+  }
+}
+
+// Role pills
+.role-pills {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.role-pill {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 100px;
+
+  &--patient {
+    background: var(--role-patient-bg);
+    color: var(--role-patient-text);
+  }
+
+  &--doctor {
+    background: var(--role-doctor-bg);
+    color: var(--role-doctor-text);
+  }
+
+  &--admin {
+    background: var(--role-admin-bg);
+    color: var(--role-admin-text);
+  }
+}
+
+// ── Responsive ─────────────────────────────────────────────────────────────
+@media (max-width: 900px) {
+  .auth-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-panel {
+    display: none;
+  }
+
+  .auth-form-side {
+    min-height: 100vh;
+    background: linear-gradient(180deg, var(--bg-app) 0%, var(--bg-subtle) 100%);
+  }
+
+  .top-nav-link {
+    position: static;
+    display: block;
+    text-align: right;
+    margin-bottom: 32px;
+  }
+}

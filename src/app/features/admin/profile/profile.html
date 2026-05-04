@@ -1,0 +1,73 @@
+<section class="profile-page">
+
+  <!-- ══ Hero Card ══ -->
+  <div class="hero-card">
+    <div class="hero-copy">
+      <span class="eyebrow">Admin Portal</span>
+      <h1 class="hero-title">My Profile</h1>
+      <p class="hero-subtitle">View and manage your administrator account details.</p>
+    </div>
+    <div class="hero-badge">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 4a4 4 0 100 8 4 4 0 000-8zm7 14v2H5v-2c0-2.67 4.67-4 7-4s7 1.33 7 4z"/>
+      </svg>
+      Administrator
+    </div>
+  </div>
+
+  <!-- ══ Content ══ -->
+  @if (loading) {
+    <div class="loading-block">
+      <mat-spinner diameter="36"></mat-spinner>
+    </div>
+  } @else if (profile) {
+    <div class="profile-layout">
+
+      <!-- Avatar Card -->
+      <div class="avatar-card">
+        <div class="avatar-circle">
+          {{ getInitials(profile.firstName, profile.lastName) }}
+        </div>
+        <h2 class="avatar-name">{{ profile.firstName }} {{ profile.lastName }}</h2>
+        <span class="role-pill">Administrator</span>
+        <p class="avatar-email">{{ profile.email }}</p>
+      </div>
+
+      <!-- Info Card -->
+      <div class="info-card">
+        <div class="card-header">
+          <div class="card-title-row">
+            <span class="card-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 4a4 4 0 100 8 4 4 0 000-8zm7 14v2H5v-2c0-2.67 4.67-4 7-4s7 1.33 7 4z"/>
+              </svg>
+            </span>
+            <h2 class="card-title">Account Details</h2>
+          </div>
+          <p class="card-sub">Your administrator account information.</p>
+        </div>
+
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="info-label">First Name</span>
+            <span class="info-value">{{ profile.firstName }}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Last Name</span>
+            <span class="info-value">{{ profile.lastName }}</span>
+          </div>
+          <div class="info-item info-item--full">
+            <span class="info-label">Email Address</span>
+            <span class="info-value">{{ profile.email }}</span>
+          </div>
+          <div class="info-item info-item--full">
+            <span class="info-label">Role</span>
+            <span class="info-value">Administrator</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  }
+
+</section>

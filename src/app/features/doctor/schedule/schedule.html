@@ -1,0 +1,212 @@
+<section class="schedule-page">
+  <!-- Hero Card -->
+  <div class="hero-card">
+    <div class="hero-copy">
+      <span class="eyebrow">DOCTOR PORTAL</span>
+      <h1 class="hero-title">My Schedule</h1>
+      <p class="hero-subtitle">Manage your availability and generate appointment slots for patients.</p>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="stat-value">{{ schedules.length }}</div>
+        <div class="stat-label">Working Days</div>
+      </div>
+      <div class="hero-stat">
+        <div class="stat-value">{{ availableSlots }}</div>
+        <div class="stat-label">Available Slots</div>
+      </div>
+      <div class="hero-stat">
+        <div class="stat-value">{{ bookedSlots }}</div>
+        <div class="stat-label">Booked Slots</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Weekly Availability -->
+  <div class="section-card">
+    <div class="section-head">
+      <h3>Weekly Availability</h3>
+      <p class="section-sub">Set your working days and hours to accept bookings.</p>
+    </div>
+
+    <form [formGroup]="scheduleForm" (ngSubmit)="addSchedule()" class="schedule-form-row">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Day</mat-label>
+        <mat-select formControlName="dayOfWeek">
+          @for (day of days; track day.value) {
+            <mat-option [value]="day.value">{{ day.label }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Start Time</mat-label>
+        <mat-select formControlName="startTime">
+          @for (time of timeOptions; track time) {
+            <mat-option [value]="time">{{ time }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>End Time</mat-label>
+        <mat-select formControlName="endTime">
+          @for (time of timeOptions; track time) {
+            <mat-option [value]="time">{{ time }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Slot Duration</mat-label>
+        <mat-select formControlName="slotDurationMinutes">
+          <mat-option [value]="15">15 min</mat-option>
+          <mat-option [value]="20">20 min</mat-option>
+          <mat-option [value]="30">30 min</mat-option>
+          <mat-option [value]="45">45 min</mat-option>
+          <mat-option [value]="60">60 min</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button type="submit" class="btn-brand" [disabled]="savingSchedule">
+        <span class="material-icons" aria-hidden="true">add</span>
+        @if (savingSchedule) { Saving... } @else { Add Day }
+      </button>
+    </form>
+
+    @if (loadingSchedules) {
+      <div class="loading-center"><mat-spinner diameter="28"></mat-spinner></div>
+    } @else if (schedules.length === 0) {
+      <div class="empty-state">
+        <div class="empty-icon">
+          <span class="material-icons" aria-hidden="true">schedule</span>
+        </div>
+        <p class="empty-text">No working days added yet. Add your schedule above to get started.</p>
+      </div>
+    } @else {
+      <div class="schedule-items">
+        @for (s of schedules; track s.id) {
+          <div class="schedule-item">
+            <div class="schedule-info">
+              <span class="schedule-day">{{ getDayName(s.dayOfWeek) }}</span>
+              <span class="schedule-time">{{ formatTime(s.startTime) }} → {{ formatTime(s.endTime) }}</span>
+              <span class="schedule-duration">{{ s.slotDurationMinutes }} min</span>
+            </div>
+            <button type="button" class="btn-delete" (click)="deleteSchedule(s.id)" aria-label="Delete schedule">
+              <span class="material-icons" aria-hidden="true">close</span>
+            </button>
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+  <!-- Generate Slots -->
+  <div class="section-card">
+    <div class="section-head">
+      <h3>Generate Slots</h3>
+      <p class="section-sub">Create availability quickly using your weekly schedule.</p>
+    </div>
+
+    <div class="generate-content">
+      <div class="generate-row">
+        <div class="generate-info">
+          <p>Generate slots for the next</p>
+          <div class="generate-options">
+            @for (days of generateOptions; track days) {
+              <button
+                type="button"
+                class="control-pill"
+                [class.control-pill--active]="selectedGenerateDays === days"
+                (click)="selectedGenerateDays = days">
+                {{ days }} days
+              </button>
+            }
+          </div>
+        </div>
+
+        <button type="button" class="btn-brand btn-large"
+          [disabled]="generating || schedules.length === 0"
+          (click)="generateSlots(selectedGenerateDays)">
+          <span class="material-icons" aria-hidden="true">bolt</span>
+          @if (generating) { Generating... } @else { {{ generateButtonText }} }
+        </button>
+      </div>
+
+      @if (schedules.length === 0) {
+        <p class="hint-text">Add your weekly schedule above before generating slots.</p>
+      }
+    </div>
+  </div>
+
+  <!-- My Slots -->
+  <div class="section-card">
+    <div class="section-head slots-head">
+      <div>
+        <h3>My Slots</h3>
+        <p class="section-sub">Your generated appointment slots, grouped by date for fast scanning.</p>
+      </div>
+    </div>
+
+    <div class="slot-toolbar">
+      <div class="filter-group">
+        <span class="toolbar-label">Filter</span>
+        <button type="button" class="control-pill" [class.control-pill--active]="slotFilter === 'all'"       (click)="slotFilter = 'all'">All</button>
+        <button type="button" class="control-pill" [class.control-pill--active]="slotFilter === 'available'" (click)="slotFilter = 'available'">Available</button>
+        <button type="button" class="control-pill" [class.control-pill--active]="slotFilter === 'booked'"    (click)="slotFilter = 'booked'">Booked</button>
+      </div>
+      <div class="stats-group">
+        <div class="stat-pill">
+          <span>Total</span><strong>{{ totalSlots }}</strong>
+        </div>
+        <div class="stat-pill stat-pill--available">
+          <span>Available</span><strong>{{ availableSlots }}</strong>
+        </div>
+        <div class="stat-pill stat-pill--booked">
+          <span>Booked</span><strong>{{ bookedSlots }}</strong>
+        </div>
+      </div>
+    </div>
+
+    @if (loadingSlots) {
+      <div class="loading-center"><mat-spinner diameter="28"></mat-spinner></div>
+    } @else if (filteredSlots.length === 0) {
+      <div class="empty-state">
+        <div class="empty-icon">
+          <span class="material-icons" aria-hidden="true">bolt</span>
+        </div>
+        <p class="empty-text">No slots generated yet. Start by adding availability and generating slots.</p>
+        <button type="button" class="btn-brand" style="margin-top:16px"
+          (click)="generateSlots(selectedGenerateDays)"
+          [disabled]="schedules.length === 0">
+          @if (schedules.length === 0) { Add availability first } @else { Generate slots }
+        </button>
+      </div>
+    } @else {
+      <div class="slots-list">
+        @for (slot of filteredSlots; track slot.id) {
+          <article class="slot-row">
+            <div class="slot-leading">
+              <span class="slot-icon" aria-hidden="true">
+                <span class="material-icons">event_available</span>
+              </span>
+              <div class="slot-info">
+                <div class="slot-date">{{ slot.startAtUtc | date:'EEE, MMM d' }}</div>
+                <div class="slot-time">{{ slot.startAtUtc | date:'h:mm a' }} – {{ slot.endAtUtc | date:'h:mm a' }}</div>
+              </div>
+            </div>
+            <div class="slot-actions">
+              <span class="status-badge status-badge--{{ slotStatus(slot).toLowerCase() }}">
+                {{ slotStatus(slot) }}
+              </span>
+              <button type="button" class="btn-icon-delete" (click)="deleteSlot(slot.id)" aria-label="Delete slot">
+                <span class="material-icons" aria-hidden="true">delete_outline</span>
+              </button>
+            </div>
+          </article>
+        }
+      </div>
+    }
+  </div>
+</section>

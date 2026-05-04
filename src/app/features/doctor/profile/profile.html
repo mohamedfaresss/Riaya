@@ -1,0 +1,95 @@
+<section class="profile-page">
+
+  <!-- ── Hero Card ─────────────────────────────────────────────────── -->
+  <div class="hero-card">
+    <div class="hero-copy">
+      <span class="eyebrow">DOCTOR PORTAL</span>
+      <h1 class="hero-title">My Profile</h1>
+      <p class="hero-subtitle">Keep your professional details up to date so patients can find and trust you.</p>
+    </div>
+
+    <!-- Avatar preview inside hero -->
+    <div class="hero-avatar-wrap">
+      <div class="hero-avatar">{{ initials }}</div>
+      @if (!loading) {
+        <div class="hero-avatar-info">
+          <span class="hero-doctor-name">
+            {{ form.get('firstName')?.value }} {{ form.get('lastName')?.value }}
+          </span>
+          <span class="hero-doctor-role">Doctor Account</span>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- ── Loading ───────────────────────────────────────────────────── -->
+  @if (loading) {
+    <div class="loading-center"><mat-spinner diameter="32"></mat-spinner></div>
+
+  } @else {
+
+    <!-- ── Form Card ──────────────────────────────────────────────── -->
+    <div class="section-card">
+      <div class="section-head">
+        <h3>Personal Information</h3>
+        <p class="section-sub">Edit your name, specialization, university and experience below.</p>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="save()">
+
+        <!-- Name row -->
+        <div class="field-row">
+          <mat-form-field appearance="outline" class="field">
+            <mat-label>First name</mat-label>
+            <input matInput formControlName="firstName" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="field">
+            <mat-label>Last name</mat-label>
+            <input matInput formControlName="lastName" />
+          </mat-form-field>
+        </div>
+
+        <!-- Email — read only -->
+        <mat-form-field appearance="outline" class="field field--full">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" readonly />
+          <mat-hint>Email address cannot be changed.</mat-hint>
+        </mat-form-field>
+
+        <!-- Specialization + Experience row -->
+        <div class="field-row">
+          <mat-form-field appearance="outline" class="field">
+            <mat-label>Specialization</mat-label>
+            <mat-select formControlName="specialization">
+              @for (spec of specializations; track spec.value) {
+                <mat-option [value]="spec.value">{{ spec.nameEn }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="field">
+            <mat-label>Years of Experience</mat-label>
+            <input matInput type="number" formControlName="yearsOfExperience" min="0" max="60" />
+          </mat-form-field>
+        </div>
+
+        <!-- University -->
+        <mat-form-field appearance="outline" class="field field--full">
+          <mat-label>University</mat-label>
+          <input matInput formControlName="university" />
+        </mat-form-field>
+
+        <!-- Submit -->
+        <div class="form-footer">
+          <button type="submit" class="btn-brand" [disabled]="saving">
+            <span class="material-icons" aria-hidden="true">save</span>
+            @if (saving) { Saving... } @else { Save Changes }
+          </button>
+        </div>
+
+      </form>
+    </div>
+
+  }
+</section>

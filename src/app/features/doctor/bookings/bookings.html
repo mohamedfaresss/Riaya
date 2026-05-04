@@ -1,0 +1,115 @@
+<section class="appointments-page">
+
+  <!-- ── Hero Card ─────────────────────────────────────────────────── -->
+  <div class="hero-card">
+    <div class="hero-copy">
+      <span class="eyebrow">DOCTOR PORTAL</span>
+      <h1 class="hero-title">Appointments</h1>
+      <p class="hero-subtitle">Review upcoming visits and keep track of confirmed and pending patient bookings.</p>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="stat-value">{{ bookings.length }}</div>
+        <div class="stat-label">Total</div>
+      </div>
+      <div class="hero-stat hero-stat--pending">
+        <div class="stat-value">{{ pendingCount }}</div>
+        <div class="stat-label">Pending</div>
+      </div>
+      <div class="hero-stat hero-stat--confirmed">
+        <div class="stat-value">{{ confirmedCount }}</div>
+        <div class="stat-label">Confirmed</div>
+      </div>
+      <div class="hero-stat hero-stat--cancelled">
+        <div class="stat-value">{{ cancelledCount }}</div>
+        <div class="stat-label">Cancelled</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Appointments List Card ─────────────────────────────────────── -->
+  <div class="section-card">
+    <div class="section-head appt-head">
+      <div>
+        <h3>Patient Bookings</h3>
+        <p class="section-sub">Manage and update the status of each appointment below.</p>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="filter-tabs">
+        @for (filter of filters; track filter) {
+          <button
+            type="button"
+            class="tab-btn"
+            [class.tab-btn--active]="activeFilter === filter"
+            (click)="setFilter(filter)">
+            {{ filter }}
+          </button>
+        }
+      </div>
+    </div>
+
+    @if (loading) {
+      <div class="loading-center"><mat-spinner diameter="32"></mat-spinner></div>
+
+    } @else if (filteredBookings.length === 0) {
+      <div class="empty-state">
+        <div class="empty-icon">
+          <span class="material-icons" aria-hidden="true">event_busy</span>
+        </div>
+        <p class="empty-text">No appointments match this filter.</p>
+      </div>
+
+    } @else {
+      <div class="appt-list">
+        @for (booking of filteredBookings; track booking.id) {
+          <article class="appt-row">
+
+            <!-- Avatar -->
+            <div class="avatar">{{ getInitials(booking.patientName) || 'P' }}</div>
+
+            <!-- Info -->
+            <div class="appt-info">
+              <p class="appt-name">{{ booking.patientName }}</p>
+              <p class="appt-meta">
+                <span class="material-icons appt-meta-icon" aria-hidden="true">calendar_today</span>
+                {{ booking.startAtUtc | date:'EEE, MMM d' }}
+                &nbsp;·&nbsp;
+                {{ booking.startAtUtc | date:'h:mm a' }} – {{ booking.endAtUtc | date:'h:mm a' }}
+              </p>
+              <p class="appt-reason">{{ booking.reason || 'General consultation' }}</p>
+            </div>
+
+            <!-- Status -->
+            <span class="status-pill status-pill--{{ getStatusClass(booking.status) }}">
+              {{ getStatusName(booking.status) }}
+            </span>
+
+            <!-- Actions -->
+            @if (isDoctor) {
+              <div class="appt-actions">
+                <button
+                  type="button"
+                  class="action-btn action-btn--confirm"
+                  [disabled]="getStatusName(booking.status) !== 'Pending'"
+                  (click)="confirmBooking(booking.id)">
+                  Confirm
+                </button>
+                <button
+                  type="button"
+                  class="action-btn action-btn--complete"
+                  [disabled]="getStatusName(booking.status) !== 'Confirmed'"
+                  (click)="completeBooking(booking.id)">
+                  Complete
+                </button>
+              </div>
+            }
+
+          </article>
+        }
+      </div>
+    }
+  </div>
+
+</section>

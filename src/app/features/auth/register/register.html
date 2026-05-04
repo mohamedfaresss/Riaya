@@ -1,0 +1,152 @@
+<div class="auth-shell">
+
+  <!-- ══════════ LEFT PANEL ══════════ -->
+  <aside class="auth-panel">
+    <a class="panel-brand" routerLink="/">
+      <svg width="30" height="30" viewBox="0 0 28 28" fill="none">
+        <rect width="28" height="28" rx="8" fill="rgba(255,255,255,0.18)"/>
+        <path d="M14 9v5l3 3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="14" cy="14" r="2.2" fill="white"/>
+      </svg>
+      <span>Riaya</span>
+    </a>
+
+    <div class="panel-body">
+      <div class="panel-steps">
+        <div class="pstep">
+          <div class="pstep-icon">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="2" width="14" height="14" rx="3" stroke="white" stroke-width="1.5"/><path d="M6 9h6M9 6v6" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <div class="pstep-title">Create your account</div>
+            <div class="pstep-sub">Free. No credit card required.</div>
+          </div>
+        </div>
+        <div class="pstep-line"></div>
+        <div class="pstep">
+          <div class="pstep-icon">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="7" r="3" stroke="white" stroke-width="1.5"/><path d="M3 15c0-3.314 2.686-5 6-5s6 1.686 6 5" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <div class="pstep-title">Browse available doctors</div>
+            <div class="pstep-sub">See schedules and specialties.</div>
+          </div>
+        </div>
+        <div class="pstep-line"></div>
+        <div class="pstep">
+          <div class="pstep-icon">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="4" width="12" height="11" rx="2" stroke="white" stroke-width="1.5"/><path d="M6 2v3M12 2v3M3 8h12" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <div class="pstep-title">Book your appointment</div>
+            <div class="pstep-sub">Instant confirmation.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-footer">© {{ currentYear }} Riaya</div>
+  </aside>
+
+  <!-- ══════════ RIGHT FORM ══════════ -->
+  <main class="auth-form-side">
+    <div class="auth-form-wrap">
+
+      <a class="top-nav-link" routerLink="/auth/login">
+        Already have an account? <strong>Sign in</strong>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+
+      <div class="form-head">
+        <div class="form-logo">
+          <svg width="36" height="36" viewBox="0 0 28 28" fill="none">
+            <rect width="28" height="28" rx="8" fill="#2563EB"/>
+            <path d="M14 9v5l3 3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="14" cy="14" r="2" fill="white"/>
+          </svg>
+        </div>
+        <h1 class="form-title">Create your account</h1>
+        <p class="form-sub">Join Riaya as a Patient — takes less than a minute.</p>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="submit()" class="auth-form" novalidate>
+
+        <div class="name-row">
+          <mat-form-field appearance="outline">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="firstName" autocomplete="given-name" placeholder="Ahmed">
+            @if (form.get('firstName')?.hasError('required') && form.get('firstName')?.touched) {
+              <mat-error>Required</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="lastName" autocomplete="family-name" placeholder="Mohamed">
+            @if (form.get('lastName')?.hasError('required') && form.get('lastName')?.touched) {
+              <mat-error>Required</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <div class="field-group">
+          <mat-form-field appearance="outline" class="field-full">
+            <mat-label>Email address</mat-label>
+            <input matInput formControlName="email" type="email" autocomplete="email" placeholder="you@example.com">
+            <mat-icon matSuffix>mail_outline</mat-icon>
+            @if (form.get('email')?.hasError('required') && form.get('email')?.touched) {
+              <mat-error>Email is required</mat-error>
+            }
+            @if (form.get('email')?.hasError('email') && form.get('email')?.touched) {
+              <mat-error>Enter a valid email</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="field-full">
+            <mat-label>Password</mat-label>
+            <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'" autocomplete="new-password" placeholder="Minimum 8 characters">
+            <button mat-icon-button matSuffix type="button"
+              (click)="hidePassword = !hidePassword"
+              [attr.aria-label]="hidePassword ? 'Show password' : 'Hide password'">
+              <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            @if (form.get('password')?.hasError('required') && form.get('password')?.touched) {
+              <mat-error>Password is required</mat-error>
+            }
+            @if (form.get('password')?.hasError('minlength') && form.get('password')?.touched) {
+              <mat-error>Minimum 8 characters</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        @if (error) {
+          <div class="form-error" role="alert">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <circle cx="8" cy="8" r="7" stroke="#DC2626" stroke-width="1.4"/>
+              <path d="M8 5v3.5M8 11h.01" stroke="#DC2626" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+            {{ error }}
+          </div>
+        }
+
+        <button class="submit-btn" type="submit" [disabled]="loading">
+          @if (loading) {
+            <mat-spinner diameter="18"></mat-spinner>
+            <span>Creating account…</span>
+          } @else {
+            <span>Create account</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          }
+        </button>
+
+      </form>
+
+      <p class="terms-note">
+        By creating an account you agree to our
+        <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+      </p>
+
+    </div>
+  </main>
+
+</div>

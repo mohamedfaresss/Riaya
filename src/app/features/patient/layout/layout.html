@@ -1,0 +1,134 @@
+<div class="patient-shell">
+
+  <!-- ══════ SIDENAV ══════ -->
+  <aside class="sidenav" [class.collapsed]="sidenavCollapsed">
+    <div class="sidenav-top">
+      <!-- Brand -->
+      <a class="sidenav-brand" routerLink="/">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <rect width="28" height="28" rx="8" fill="rgba(255,255,255,0.18)"/>
+          <path d="M14 9v5l3 3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="14" cy="14" r="2" fill="white"/>
+        </svg>
+        <span class="brand-name">Riaya</span>
+      </a>
+
+      <!-- Role badge -->
+      <div class="role-badge">Patient Portal</div>
+    </div>
+
+    <nav class="sidenav-nav">
+      <a class="nav-item" routerLink="/patient/dashboard" routerLinkActive="nav-item--active">
+        <span class="nav-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <rect x="2" y="2" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+            <rect x="10" y="2" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+            <rect x="2" y="10" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+            <rect x="10" y="10" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+        </span>
+        <span class="nav-label">Dashboard</span>
+      </a>
+
+      <a class="nav-item" routerLink="/patient/doctors" routerLinkActive="nav-item--active">
+        <span class="nav-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <circle cx="9" cy="6" r="3" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M3 15c0-3.314 2.686-5 6-5s6 1.686 6 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="nav-label">Find a Doctor</span>
+      </a>
+
+      <a class="nav-item" routerLink="/patient/bookings" routerLinkActive="nav-item--active">
+        <span class="nav-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <rect x="3" y="4" width="12" height="11" rx="2" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M6 2v3M12 2v3M3 8h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="nav-label">My Bookings</span>
+      </a>
+
+      <a class="nav-item" routerLink="/patient/profile" routerLinkActive="nav-item--active">
+        <span class="nav-icon">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="9" cy="7" r="2.5" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M4.5 14.5c.5-2 2.5-3 4.5-3s4 1 4.5 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="nav-label">Profile</span>
+      </a>
+    </nav>
+
+    <div class="sidenav-bottom">
+      <button class="logout-btn" (click)="logout()">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M6 2H3a1 1 0 00-1 1v10a1 1 0 001 1h3M10 11l3-3-3-3M13 8H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Logout</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ══════ MAIN ══════ -->
+  <div class="main-area">
+    <!-- Mobile topbar -->
+    <header class="topbar">
+      <button class="hamburger-btn" (click)="toggleMobileMenu()">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <a class="topbar-brand" routerLink="/">
+        <svg width="24" height="24" viewBox="0 0 28 28" fill="none">
+          <rect width="28" height="28" rx="8" fill="#2563EB"/>
+          <path d="M14 9v5l3 3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="14" cy="14" r="2" fill="white"/>
+        </svg>
+        Riaya
+      </a>
+    </header>
+
+    <!-- Mobile drawer overlay -->
+    <div class="mobile-overlay" [class.open]="mobileMenuOpen" (click)="closeMobileMenu()"></div>
+    <aside class="mobile-drawer" [class.open]="mobileMenuOpen">
+      <nav class="sidenav-nav">
+        <a class="nav-item" routerLink="/patient/dashboard" routerLinkActive="nav-item--active" (click)="closeMobileMenu()">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="2" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="10" y="2" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="2" y="10" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="10" y="10" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/></svg>
+          </span>
+          <span class="nav-label">Dashboard</span>
+        </a>
+        <a class="nav-item" routerLink="/patient/doctors" routerLinkActive="nav-item--active" (click)="closeMobileMenu()">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="6" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M3 15c0-3.314 2.686-5 6-5s6 1.686 6 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </span>
+          <span class="nav-label">Find a Doctor</span>
+        </a>
+        <a class="nav-item" routerLink="/patient/bookings" routerLinkActive="nav-item--active" (click)="closeMobileMenu()">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="4" width="12" height="11" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M6 2v3M12 2v3M3 8h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </span>
+          <span class="nav-label">My Bookings</span>
+        </a>
+        <a class="nav-item" routerLink="/patient/profile" routerLinkActive="nav-item--active" (click)="closeMobileMenu()">
+          <span class="nav-icon">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.5"/><circle cx="9" cy="7" r="2.5" stroke="currentColor" stroke-width="1.5"/><path d="M4.5 14.5c.5-2 2.5-3 4.5-3s4 1 4.5 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </span>
+          <span class="nav-label">Profile</span>
+        </a>
+        <button class="logout-btn" (click)="logout()">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 2H3a1 1 0 00-1 1v10a1 1 0 001 1h3M10 11l3-3-3-3M13 8H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Logout</span>
+        </button>
+      </nav>
+    </aside>
+
+    <main class="page-content">
+      <router-outlet />
+    </main>
+  </div>
+
+</div>

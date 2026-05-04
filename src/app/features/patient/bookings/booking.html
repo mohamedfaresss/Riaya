@@ -1,0 +1,91 @@
+<div class="bookings-page">
+
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">My Bookings</h1>
+      <p class="page-sub">Manage and track your appointments</p>
+    </div>
+    <a class="btn-primary" routerLink="/patient/doctors">
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+        <path d="M7.5 2v11M2 7.5h11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      New Booking
+    </a>
+  </div>
+
+  <!-- Filter tabs -->
+  <div class="filter-tabs">
+    @for (f of filters; track f) {
+      <button class="filter-tab" [class.filter-tab--active]="filter === f" (click)="filter = f">
+        {{ f }}
+        @if (f !== 'All') {
+          <span class="filter-count">
+            {{ f === 'Pending' ? pendingCount : f === 'Confirmed' ? confirmedCount : cancelledCount }}
+          </span>
+        }
+      </button>
+    }
+  </div>
+
+  @if (loading) {
+    <div class="state-center">
+      <mat-spinner diameter="36"></mat-spinner>
+    </div>
+  } @else if (filteredBookings.length === 0) {
+    <div class="empty-state">
+      <div class="empty-icon">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <rect x="4" y="6" width="24" height="22" rx="3" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M11 3v6M21 3v6M4 14h24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <p class="empty-title">No {{ filter === 'All' ? '' : filter.toLowerCase() }} bookings</p>
+      <p class="empty-sub">{{ filter === 'All' ? 'Book your first appointment to get started' : 'Try a different filter' }}</p>
+    </div>
+  } @else {
+    <div class="bookings-list">
+      @for (booking of filteredBookings; track booking.id) {
+        <div class="booking-card">
+          <div class="booking-card-left">
+            <div class="doctor-avatar">
+              {{ (booking.doctorName || 'D').charAt(0).toUpperCase() }}
+            </div>
+            <div class="booking-info">
+              <div class="doctor-name">Dr. {{ booking.doctorName }}</div>
+              <div class="booking-reason">{{ booking.reason || 'General checkup' }}</div>
+              <div class="booking-meta">
+                <span class="meta-item">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <rect x="1" y="2" width="10" height="9" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+                    <path d="M4 1v2M8 1v2M1 5h10" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+                  </svg>
+                  {{ booking.startAtUtc | date:'EEE, MMM d, y' }}
+                </span>
+                <span class="meta-dot">·</span>
+                <span class="meta-item">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/>
+                    <path d="M6 4v2.5l1.5 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+                  </svg>
+                  {{ booking.startAtUtc | date:'h:mm a' }} — {{ booking.endAtUtc | date:'h:mm a' }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="booking-card-right">
+            <span class="status-pill" [class]="'status-pill--' + (booking.status || '').toLowerCase()">
+              {{ booking.status }}
+            </span>
+@if (booking.status === 'Pending' || booking.status === 'Confirmed') {
+              <button class="cancel-btn" (click)="cancelBooking(booking.id)">
+                Cancel
+              </button>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+</div>

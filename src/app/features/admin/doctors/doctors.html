@@ -1,0 +1,61 @@
+<section class="doctors-page">
+
+  <!-- ══ Hero Card — matches admin portal pattern ══ -->
+  <div class="hero-card">
+    <div class="hero-copy">
+      <span class="eyebrow">Admin Portal</span>
+      <h1 class="hero-title">Manage Doctors</h1>
+      <p class="hero-subtitle">
+        Add, review, and remove doctor accounts across the clinic.
+      </p>
+    </div>
+
+    <div class="hero-actions">
+      <a class="btn-primary" routerLink="/admin/add-doctor">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z"/>
+        </svg>
+        Add Doctor
+      </a>
+    </div>
+  </div>
+
+  <!-- ══ List Card ══ -->
+  <div class="list-card">
+    @if (loading) {
+      <div class="loading-block">
+        <mat-spinner diameter="36"></mat-spinner>
+      </div>
+    } @else if (doctors.length === 0) {
+      <div class="empty-state">
+        <div class="empty-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 4a4 4 0 100 8 4 4 0 000-8zm7 14v2H5v-2c0-2.67 4.67-4 7-4s7 1.33 7 4z"/>
+          </svg>
+        </div>
+        <p class="empty-title">No doctors yet</p>
+        <p class="empty-sub">Create the first doctor account using the Add Doctor button above.</p>
+        <a class="btn-primary" routerLink="/admin/add-doctor">Add Doctor</a>
+      </div>
+    } @else {
+      <div class="rows">
+        @for (doctor of doctors; track doctor.id) {
+          <div class="row">
+            <div class="avatar">{{ getInitials(doctor.firstName, doctor.lastName) || 'DR' }}</div>
+            <div class="row-info">
+              <p class="name">Dr. {{ doctor.firstName }} {{ doctor.lastName }}</p>
+              <p class="meta">{{ doctor.email }}</p>
+            </div>
+            <button type="button" class="danger-btn" (click)="deleteDoctor(doctor.id)">
+              <svg viewBox="0 0 20 20" aria-hidden="true">
+                <path d="M5 5.75h10M7.25 5.75V4.5A1.25 1.25 0 018.5 3.25h3A1.25 1.25 0 0112.75 4.5v1.25M6.5 7.25l.6 7.1A1.5 1.5 0 008.59 15.75h2.82a1.5 1.5 0 001.49-1.4l.6-7.1"/>
+              </svg>
+              Delete
+            </button>
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+</section>

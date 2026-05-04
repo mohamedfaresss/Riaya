@@ -1,0 +1,378 @@
+/*
+  schedule.scss
+  ─────────────────────────────────────────────────────
+  All colors, radii, shadows, fonts → from styles.scss (global).
+  This file ONLY contains layout & component shapes
+  that are specific to the schedule page.
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+/* ══════════════════════════════════════════════════════
+   PAGE WRAPPER
+══════════════════════════════════════════════════════ */
+.schedule-page {
+  max-width: 1080px;
+  padding: 8px 0 28px;
+  font-family: 'Inter', sans-serif;
+  color: var(--text-primary);
+}
+
+/* ══════════════════════════════════════════════════════
+   HERO CARD
+══════════════════════════════════════════════════════ */
+.hero-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.9fr);
+  gap: 24px;
+  padding: 28px;
+  border-radius: var(--radius-2xl);
+  background:
+    radial-gradient(circle at top right, rgba(99, 102, 241, 0.12), transparent 30%),
+    linear-gradient(135deg, #f8faff 0%, #eef2ff 56%, #fdfefe 100%);
+  border: 1px solid rgba(99, 102, 241, 0.14);
+  box-shadow: var(--shadow-lg);
+  margin-bottom: 24px;
+}
+
+.hero-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  width: fit-content;
+  padding: 7px 12px;
+  margin-bottom: 12px;
+  border-radius: 999px;
+  background: rgba(99, 102, 241, 0.10);
+  color: var(--brand);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero-title {
+  margin: 0 0 10px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(1.5rem, 2.3vw, 2rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.04em;
+  color: var(--text-primary);
+}
+
+.hero-subtitle {
+  max-width: 520px;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.hero-stat {
+  background: var(--bg-subtle);
+  border-radius: var(--radius-lg);
+  padding: 14px 12px;
+  text-align: center;
+  border: 1px solid var(--border-subtle);
+}
+
+.stat-value {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--brand);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ══════════════════════════════════════════════════════
+   FORM ROW
+══════════════════════════════════════════════════════ */
+.schedule-form-row {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.schedule-form-row .form-field { flex: 1; min-width: 140px; }
+.schedule-form-row .btn-brand  { flex-shrink: 0; align-self: flex-start; }
+
+.form-field {
+  width: 100%;
+
+  ::ng-deep {
+    .mat-mdc-form-field { width: 100%; }
+
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing { border-color: var(--border-subtle); }
+
+    .mat-mdc-form-field-focus-overlay { background-color: rgba(99, 102, 241, 0.04); }
+    .mdc-text-field--filled { background-color: transparent; }
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   SCHEDULE LIST ITEMS
+══════════════════════════════════════════════════════ */
+.schedule-items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.schedule-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-radius: var(--radius-lg);
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-subtle);
+  transition: background 0.18s ease, border-color 0.18s ease;
+
+  &:hover {
+    background: var(--brand-bg);
+    border-color: rgba(99, 102, 241, 0.20);
+  }
+}
+
+.schedule-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.schedule-day {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  min-width: 100px;
+}
+
+.schedule-time {
+  font-size: 12px;
+  color: var(--text-secondary);
+  min-width: 120px;
+}
+
+.schedule-duration {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--brand);
+  background: var(--brand-soft);
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+/* delete button inside schedule row */
+.btn-delete {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease;
+
+  &:hover { background: var(--brand-red-soft); color: var(--brand-red-text); }
+
+  .material-icons { font-size: 18px; }
+}
+
+/* ══════════════════════════════════════════════════════
+   GENERATE SECTION
+══════════════════════════════════════════════════════ */
+.generate-content { display: flex; flex-direction: column; gap: 16px; }
+
+.generate-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.generate-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+
+  p { margin: 0; font-size: 14px; color: var(--text-secondary); }
+}
+
+.generate-options { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.hint-text {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* ══════════════════════════════════════════════════════
+   SLOTS TOOLBAR
+══════════════════════════════════════════════════════ */
+.slots-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+
+  > div:first-child { flex: 1; }
+}
+
+.slot-toolbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.filter-group, .stats-group { display: flex; align-items: center; gap: 10px; }
+.stats-group { gap: 8px; }
+
+.toolbar-label {
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ══════════════════════════════════════════════════════
+   SLOT CARDS
+══════════════════════════════════════════════════════ */
+.slots-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.slot-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 18px;
+  border-radius: var(--radius-2xl);
+  border: 1px solid var(--border-subtle);
+  background: linear-gradient(180deg, #ffffff 0%, #f9fbff 100%);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+    border-color: rgba(99, 102, 241, 0.15);
+    box-shadow: 0 8px 16px rgba(99, 102, 241, 0.06);
+  }
+}
+
+.slot-leading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.slot-icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: var(--radius-lg);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--brand-soft) 0%, var(--brand-bg) 100%);
+  color: var(--brand);
+
+  .material-icons { font-size: 18px; }
+}
+
+.slot-info {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.slot-date {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.slot-time {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.slot-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* ══════════════════════════════════════════════════════
+   STATUS BADGE  (slot-specific alias of status-pill)
+══════════════════════════════════════════════════════ */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+  text-transform: capitalize;
+
+  &--available { background: var(--brand-green-soft); color: var(--brand-green-text); }
+  &--booked    { background: var(--brand-red-soft);   color: var(--brand-red-text); }
+}
+
+/* ══════════════════════════════════════════════════════
+   MISC
+══════════════════════════════════════════════════════ */
+.empty-state--inline { padding: 30px; text-align: center; }
+
+/* ══════════════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .hero-card { grid-template-columns: 1fr; }
+  .hero-stats { grid-template-columns: 1fr; gap: 8px; }
+  .schedule-form-row { flex-direction: column; }
+  .slot-toolbar { flex-direction: column; align-items: flex-start; }
+}

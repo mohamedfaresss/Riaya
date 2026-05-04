@@ -1,0 +1,232 @@
+/*
+  layout.scss — Doctor Shell
+  ─────────────────────────────────────────────────────
+  Sidenav active/hover → indigo (matches all page heroes).
+  All other tokens from styles.scss (global).
+*/
+
+.doctor-shell {
+  min-height: 100vh;
+  display: flex;
+  background: var(--bg-app);
+  font-family: 'Inter', sans-serif;
+}
+
+/* ══════════════════════════════════════════════════════
+   SIDENAV
+══════════════════════════════════════════════════════ */
+.sidenav,
+.mobile-drawer {
+  width: 250px;
+  background: #0f172a;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+
+  /* subtle dot texture */
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 24px 24px;
+    pointer-events: none;
+  }
+}
+
+.sidenav-top,
+.sidenav-nav,
+.sidenav-bottom { position: relative; z-index: 1; }
+
+.sidenav-top {
+  padding: 24px 18px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+
+  h2 {
+    margin: 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+  }
+
+  p {
+    margin: 4px 0 0;
+    font-size: 11px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.55);
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+  }
+}
+
+.sidenav-nav {
+  flex: 1;
+  padding: 14px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* ── Nav Items — indigo active ──────────────────────── */
+.nav-item {
+  height: 42px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 12px;
+  color: rgba(255,255,255,0.65);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
+
+  &:hover {
+    background: rgba(99, 102, 241, 0.20);   /* ← indigo */
+    color: #ffffff;
+    transform: translateY(-1px);
+  }
+
+  &.nav-item--active {
+    background: rgba(99, 102, 241, 0.30);   /* ← indigo */
+    color: #ffffff;
+    border: 1px solid rgba(99, 102, 241, 0.45);
+  }
+}
+
+.nav-icon {
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  svg { width: 18px; height: 18px; fill: currentColor; }
+}
+
+.nav-label { flex: 1; }
+
+/* ── Bottom — Logout ────────────────────────────────── */
+.sidenav-bottom {
+  padding: 12px 10px 16px;
+  border-top: 1px solid rgba(255,255,255,0.12);
+}
+
+.logout-btn {
+  width: 100%;
+  height: 42px;
+  border: 1px solid rgba(255,255,255,0.20);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: rgba(255,255,255,0.80);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+
+  svg { width: 17px; height: 17px; fill: currentColor; }
+
+  &:hover {
+    transform: translateY(-1px);
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.35);
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   MAIN AREA
+══════════════════════════════════════════════════════ */
+.main-area {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Topbar (mobile only) ───────────────────────────── */
+.topbar {
+  display: none;
+  height: 60px;
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  align-items: center;
+  gap: 10px;
+  padding: 0 16px;
+}
+
+.icon-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.18s ease, background 0.18s ease;
+
+  svg { width: 18px; height: 18px; fill: currentColor; }
+
+  &:hover { transform: translateY(-1px); background: var(--bg-subtle); }
+}
+
+.topbar-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.page-content {
+  flex: 1;
+  overflow: auto;
+  padding: 24px;
+}
+
+/* ══════════════════════════════════════════════════════
+   MOBILE DRAWER + OVERLAY
+══════════════════════════════════════════════════════ */
+.mobile-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  z-index: 90;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+
+  &.open { opacity: 1; }
+}
+
+.mobile-drawer {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 91;
+  transform: translateX(-100%);
+  transition: transform 0.22s ease;
+
+  &.open { transform: translateX(0); }
+}
+
+/* ══════════════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════════════ */
+@media (max-width: 960px) {
+  .sidenav { display: none; }
+  .topbar  { display: flex; }
+  .mobile-overlay,
+  .mobile-drawer { display: flex; }
+  .page-content  { padding: 16px; }
+}

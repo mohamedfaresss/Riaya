@@ -1,0 +1,131 @@
+<div class="dialog-shell">
+
+  <div class="dialog-header">
+    <div class="dialog-header-left">
+      <div class="dialog-doctor-avatar">
+        {{ (data.doctor.fullName || 'D').charAt(0).toUpperCase() }}
+      </div>
+      <div>
+        <h2 class="dialog-title">Book Appointment</h2>
+        <p class="dialog-subtitle">Dr. {{ data.doctor.fullName }}</p>
+      </div>
+    </div>
+    <button class="dialog-close" mat-dialog-close>
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <mat-dialog-content class="dialog-content">
+    @if (success) {
+      <div class="success-state">
+        <div class="success-icon">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <circle cx="14" cy="14" r="13" fill="#16A34A" fill-opacity="0.1" stroke="#16A34A" stroke-width="1.5"/>
+            <path d="M9 14l3.5 3.5 6-7" stroke="#16A34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <p class="success-title">Booking Confirmed!</p>
+        <p class="success-sub">Your appointment has been successfully booked.</p>
+      </div>
+    } @else if (loading) {
+      <div class="state-center">
+        <mat-spinner diameter="32"></mat-spinner>
+        <p class="state-label">Loading available slots...</p>
+      </div>
+    } @else if (slots.length === 0) {
+      <div class="empty-state">
+        <div class="empty-icon">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <rect x="4" y="6" width="20" height="18" rx="2.5" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M9 3v5M19 3v5M4 12h20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M10 17h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <p class="empty-title">No available slots</p>
+        <p class="empty-sub">This doctor has no open appointments at the moment.</p>
+      </div>
+    } @else {
+      <form [formGroup]="form">
+        <div class="field-group">
+          <label class="field-label">Select Day</label>
+          <div class="day-selector" role="listbox" aria-label="Available days">
+            @for (day of dayGroups; track day.key) {
+              <button
+                type="button"
+                class="day-chip"
+                [class.day-chip--active]="selectedDayKey === day.key"
+                (click)="selectDay(day.key)">
+                <span class="day-chip__name">{{ formatDayName(day.date) }}</span>
+                <span class="day-chip__date">{{ formatDayDate(day.date) }}</span>
+              </button>
+            }
+          </div>
+        </div>
+
+        <div class="field-group">
+          <div class="slots-header">
+            <label class="field-label">Select Time</label>
+            @if (selectedDayKey) {
+              <span class="slots-caption">Available slots for {{ getSelectedDayLabel() }}</span>
+            }
+          </div>
+
+          <div class="time-slots" role="listbox" aria-label="Available time slots">
+            @for (slot of getSelectedDaySlots(); track slot.id) {
+              <button
+                type="button"
+                class="time-slot"
+                [class.time-slot--active]="form.value.timeSlotId === slot.id"
+                (click)="selectTimeSlot(slot.id)">
+                <span>{{ slot.startAtUtc | date:'h:mm a' }}</span>
+                <span class="time-slot__divider">-</span>
+                <span>{{ slot.endAtUtc | date:'h:mm a' }}</span>
+              </button>
+            }
+          </div>
+
+          @if (form.get('timeSlotId')?.hasError('required') && form.get('timeSlotId')?.touched) {
+            <div class="field-error">Please select a time slot</div>
+          }
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Reason <span class="optional-tag">optional</span></label>
+          <mat-form-field appearance="outline" class="field-full">
+            <textarea matInput formControlName="reason" rows="3" placeholder="e.g. routine checkup, follow-up visit..."></textarea>
+          </mat-form-field>
+        </div>
+
+        @if (error) {
+          <div class="form-error">
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+              <circle cx="7.5" cy="7.5" r="6.5" stroke="#DC2626" stroke-width="1.3"/>
+              <path d="M7.5 5v3M7.5 10h.01" stroke="#DC2626" stroke-width="1.3" stroke-linecap="round"/>
+            </svg>
+            {{ error }}
+          </div>
+        }
+      </form>
+    }
+  </mat-dialog-content>
+
+  @if (!loading && !success && slots.length > 0) {
+    <div class="dialog-actions">
+      <button class="btn-cancel" mat-dialog-close>Cancel</button>
+      <button class="btn-confirm" (click)="submit()" [disabled]="submitting">
+        @if (submitting) {
+          <mat-spinner diameter="17"></mat-spinner>
+          <span>Confirming...</span>
+        } @else {
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+            <path d="M2 8l4 4 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>Confirm Booking</span>
+        }
+      </button>
+    </div>
+  }
+
+</div>

@@ -1,0 +1,114 @@
+<div class="auth-shell">
+
+  <!-- ══════════ LEFT PANEL ══════════ -->
+  <aside class="auth-panel">
+    <a class="panel-brand" routerLink="/">
+      <svg width="30" height="30" viewBox="0 0 28 28" fill="none">
+        <rect width="28" height="28" rx="8" fill="rgba(255,255,255,0.18)"/>
+        <path d="M14 9v5l3 3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="14" cy="14" r="2.2" fill="white"/>
+      </svg>
+      <span>Riaya</span>
+    </a>
+
+    <div class="panel-body">
+      <blockquote class="panel-quote">
+        "Riaya took the scheduling chaos out of our clinic. Our staff adopted it in a day."
+      </blockquote>
+      <div class="panel-author">
+        <div class="author-avatar">DK</div>
+        <div>
+          <div class="author-name">Dr. Dina Khalil</div>
+          <div class="author-role">Clinic Director, Cairo</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-footer">© {{ currentYear }} Riaya</div>
+  </aside>
+
+  <!-- ══════════ RIGHT FORM ══════════ -->
+  <main class="auth-form-side">
+    <div class="auth-form-wrap">
+
+      <!-- Top nav link -->
+      <a class="top-nav-link" routerLink="/auth/register">
+        Don't have an account? <strong>Sign up</strong>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+
+      <div class="form-head">
+        <div class="form-logo">
+          <svg width="36" height="36" viewBox="0 0 28 28" fill="none">
+            <rect width="28" height="28" rx="8" fill="#2563EB"/>
+            <path d="M14 9v5l3 3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="14" cy="14" r="2" fill="white"/>
+          </svg>
+        </div>
+        <h1 class="form-title">Welcome back</h1>
+        <p class="form-sub">Sign in to your Riaya account</p>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="submit()" class="auth-form" novalidate>
+
+        <div class="field-group">
+          <mat-form-field appearance="outline" class="field-full">
+            <mat-label>Email address</mat-label>
+            <input matInput formControlName="email" type="email" autocomplete="email" placeholder="you@example.com">
+            <mat-icon matSuffix>mail_outline</mat-icon>
+            @if (form.get('email')?.hasError('required') && form.get('email')?.touched) {
+              <mat-error>Email is required</mat-error>
+            }
+            @if (form.get('email')?.hasError('email') && form.get('email')?.touched) {
+              <mat-error>Enter a valid email</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="field-full">
+            <mat-label>Password</mat-label>
+            <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'" autocomplete="current-password">
+            <button mat-icon-button matSuffix type="button"
+              (click)="hidePassword = !hidePassword"
+              [attr.aria-label]="hidePassword ? 'Show password' : 'Hide password'">
+              <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            @if (form.get('password')?.hasError('required') && form.get('password')?.touched) {
+              <mat-error>Password is required</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        @if (error) {
+          <div class="form-error" role="alert">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <circle cx="8" cy="8" r="7" stroke="#DC2626" stroke-width="1.4"/>
+              <path d="M8 5v3.5M8 11h.01" stroke="#DC2626" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+            {{ error }}
+          </div>
+        }
+
+        <button class="submit-btn" type="submit" [disabled]="loading">
+          @if (loading) {
+            <mat-spinner diameter="18"></mat-spinner>
+            <span>Signing in…</span>
+          } @else {
+            <span>Sign in</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          }
+        </button>
+
+      </form>
+
+      <div class="form-divider"><span>Riaya Healthcare Platform</span></div>
+
+      <div class="role-pills">
+        <span class="role-pill role-pill--patient">Patients</span>
+        <span class="role-pill role-pill--doctor">Doctors</span>
+        <span class="role-pill role-pill--admin">Admins</span>
+      </div>
+
+    </div>
+  </main>
+
+</div>

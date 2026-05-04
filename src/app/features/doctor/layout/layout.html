@@ -1,0 +1,130 @@
+<div class="doctor-shell">
+  <aside class="sidenav">
+    <div class="sidenav-top">
+      <h2>Riaya</h2>
+      <p>Doctor Portal</p>
+    </div>
+
+    <nav class="sidenav-nav">
+      @for (item of navItems; track item.route) {
+        <a
+          class="nav-item"
+          [routerLink]="item.route"
+          routerLinkActive="nav-item--active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <span class="nav-icon">
+            @switch (item.icon) {
+              @case ('dashboard') {
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M3 3h8v8H3zM13 3h8v5h-8zM13 10h8v11h-8zM3 13h8v8H3z" />
+                </svg>
+              }
+              @case ('schedule') {
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M7 2h2v2h6V2h2v2h3v18H4V4h3V2zm11 8H6v10h12V10z" />
+                </svg>
+              }
+              @case ('appointments') {
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M4 5h16v14H4V5zm2 2v10h12V7H6zm3 2h6v2H9V9zm0 4h4v2H9v-2z" />
+                </svg>
+              }
+              @default {
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 12a5 5 0 100-10 5 5 0 000 10zm0 2c-4.42 0-8 2.02-8 4.5V22h16v-3.5C20 16.02 16.42 14 12 14z" />
+                </svg>
+              }
+            }
+          </span>
+          <span class="nav-label">{{ item.label }}</span>
+        </a>
+      }
+    </nav>
+
+    <div class="sidenav-bottom">
+      <button type="button" class="logout-btn" (click)="logout()">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M16 17v-3H9v-4h7V7l5 5-5 5zM3 5h8v2H5v10h6v2H3V5z" />
+        </svg>
+        <span>Logout</span>
+      </button>
+    </div>
+  </aside>
+
+  <div class="main-area">
+    <header class="topbar">
+      <button type="button" class="icon-btn" (click)="toggleMobileDrawer()" aria-label="Toggle menu">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z" />
+        </svg>
+      </button>
+      <span class="topbar-title">Doctor Portal</span>
+    </header>
+
+    <main class="page-content">
+      <router-outlet />
+    </main>
+  </div>
+</div>
+
+<div
+  class="mobile-overlay"
+  [ngClass]="{ open: mobileDrawerOpen }"
+  (click)="closeMobileDrawer()"
+  [attr.aria-hidden]="!mobileDrawerOpen"
+></div>
+
+<aside class="mobile-drawer" [ngClass]="{ open: mobileDrawerOpen }">
+  <div class="sidenav-top">
+    <h2>Riaya</h2>
+    <p>Doctor Portal</p>
+  </div>
+
+  <nav class="sidenav-nav">
+    @for (item of navItems; track item.route) {
+      <a
+        class="nav-item"
+        [routerLink]="item.route"
+        routerLinkActive="nav-item--active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="closeMobileDrawer()"
+      >
+        <span class="nav-icon">
+          @switch (item.icon) {
+            @case ('dashboard') {
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M3 3h8v8H3zM13 3h8v5h-8zM13 10h8v11h-8zM3 13h8v8H3z" />
+              </svg>
+            }
+            @case ('schedule') {
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7 2h2v2h6V2h2v2h3v18H4V4h3V2zm11 8H6v10h12V10z" />
+              </svg>
+            }
+            @case ('appointments') {
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 5h16v14H4V5zm2 2v10h12V7H6zm3 2h6v2H9V9zm0 4h4v2H9v-2z" />
+              </svg>
+            }
+            @default {
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 12a5 5 0 100-10 5 5 0 000 10zm0 2c-4.42 0-8 2.02-8 4.5V22h16v-3.5C20 16.02 16.42 14 12 14z" />
+              </svg>
+            }
+          }
+        </span>
+        <span class="nav-label">{{ item.label }}</span>
+      </a>
+    }
+  </nav>
+
+  <div class="sidenav-bottom">
+    <button type="button" class="logout-btn" (click)="logout()">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M16 17v-3H9v-4h7V7l5 5-5 5zM3 5h8v2H5v10h6v2H3V5z" />
+      </svg>
+      <span>Logout</span>
+    </button>
+  </div>
+</aside>
