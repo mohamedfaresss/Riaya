@@ -1,386 +1,419 @@
-@use '@angular/material' as mat;
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=Inter:wght@400;500;600&display=swap');
+  @use '@angular/material' as mat;
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&family=Inter:wght@400;500;600&display=swap');
 
-:root {
-  /* ── App Background ─────────────────────────────── */
-  --bg-app: #f8fafc;
-  --bg-surface: #ffffff;
-  --bg-subtle: #f1f5f9;
+  :root {
+    /* ── App Background ─────────────────────────────── */
+    --bg-app: #f8fafc;
+    --bg-surface: #ffffff;
+    --bg-subtle: #f1f5f9;
 
-  /* ── Typography ─────────────────────────────────── */
-  --text-primary: #0f172a;
-  --text-secondary: #64748b;
-  --text-muted: #94a3b8;
+    /* ── Typography ─────────────────────────────────── */
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
+    --text-muted: #94a3b8;
 
-  /* ── Borders & Radius ───────────────────────────── */
-  --border-subtle: #e2e8f0;
-  --border-strong: #cbd5e1;
-  --radius-sm: 8px;
-  --radius-md: 10px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-  --radius-2xl: 18px;
+    /* ── Borders & Radius ───────────────────────────── */
+    --border-subtle: #e2e8f0;
+    --border-strong: #cbd5e1;
+    --radius-sm: 8px;
+    --radius-md: 10px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-2xl: 18px;
 
-  /* ── Shadows ────────────────────────────────────── */
-  --shadow-sm: 0 4px 14px rgba(15, 23, 42, 0.06);
-  --shadow-md: 0 10px 28px rgba(15, 23, 42, 0.10);
-  --shadow-lg: 0 20px 44px rgba(15, 23, 42, 0.08);
+    /* ── Shadows ────────────────────────────────────── */
+    --shadow-sm: 0 4px 14px rgba(15, 23, 42, 0.06);
+    --shadow-md: 0 10px 28px rgba(15, 23, 42, 0.10);
+    --shadow-lg: 0 20px 44px rgba(15, 23, 42, 0.08);
 
-  /* ── Brand: Indigo (Doctor / Schedule) ──────────── */
-  --brand: #6366f1;
-  --brand-dark: #4f46e5;
-  --brand-soft: #e0e7ff;
-  --brand-bg: #f0f4ff;
-  --brand-shadow: rgba(99, 102, 241, 0.20);
+    /* ── Brand: Indigo (Doctor) ─────────────────────── */
+    --brand: #6366f1;
+    --brand-dark: #4f46e5;
+    --brand-soft: #e0e7ff;
+    --brand-bg: #f0f4ff;
+    --brand-shadow: rgba(99, 102, 241, 0.20);
 
-  /* ── Brand: Green (Patient / Confirmed) ─────────── */
-  --brand-green: #16a34a;
-  --brand-green-dark: #15803d;
-  --brand-green-soft: #e8f5e9;
-  --brand-green-text: #2e7d32;
+    /* ── Brand: Blue (Patient) ──────────────────────── */
+    --brand-blue: #1769e0;
+    --brand-blue-dark: #0f4fb5;
+    --brand-blue-soft: #e8f1ff;
+    --brand-blue-bg: #f3f8ff;
+    --brand-blue-shadow: rgba(23, 105, 224, 0.20);
 
-  /* ── Brand: Red (Danger / Booked / Cancelled) ───── */
-  --brand-red-soft: #ffebee;
-  --brand-red-text: #c62828;
+    /* ── Brand: Red (Danger / Cancelled) ────────────── */
+    --brand-red-soft: #ffebee;
+    --brand-red-text: #c62828;
 
-  /* ── Status ─────────────────────────────────────── */
-  --status-pending-bg: #fff3e0;
-  --status-pending-text: #e65100;
-  --status-confirmed-bg: var(--brand-green-soft);
-  --status-confirmed-text: var(--brand-green-text);
-  --status-cancelled-bg: var(--brand-red-soft);
-  --status-cancelled-text: var(--brand-red-text);
+    /* ── Status ─────────────────────────────────────── */
+    --status-pending-bg: #fff3e0;
+    --status-pending-text: #e65100;
+    --status-confirmed-bg: #e8f5e9;
+    --status-confirmed-text: #2e7d32;
+    --status-cancelled-bg: var(--brand-red-soft);
+    --status-cancelled-text: var(--brand-red-text);
 
-  /* ── Role Colors ────────────────────────────────── */
-  --role-patient-bg: #e3f2fd;
-  --role-patient-text: #1565c0;
+    /* ── Role Colors ────────────────────────────────── */
+    --role-patient-bg: #e3f2fd;
+    --role-patient-text: #1565c0;
+    --role-doctor-bg: var(--brand-soft);
+    --role-doctor-text: var(--brand-dark);
+    --role-admin-bg: #fce4ec;
+    --role-admin-text: #b71c1c;
 
---role-doctor-bg: var(--brand-soft);
---role-doctor-text: var(--brand-dark);
-  
-  --role-admin-bg: #fce4ec;
-  --role-admin-text: #b71c1c;
+    /* ── Accent Helpers ─────────────────────────────── */
+    --accent-patient: #1769e0;
+    --accent-doctor: #6366f1;
+    --accent-admin: #b91c1c;
+    --accent-info: #1769e0;
+    --accent-success: #16a34a;
+    --accent-warning: #f57c00;
+    --accent-danger: var(--brand-red-text);
+    --accent-purple: #7b1fa2;
+    --accent-teal: #00796b;
 
-  /* ── Accent Helpers ─────────────────────────────── */
-  --accent-patient: #1976d2;
-  --accent-doctor: var(--brand-green);
-  --accent-admin: #b91c1c;
-  --accent-info: #1976d2;
-  --accent-success: var(--brand-green);
-  --accent-warning: #f57c00;
-  --accent-danger: var(--brand-red-text);
-  --accent-purple: #7b1fa2;
-  --accent-teal: #00796b;
+    --error-text: #f44336;
+    --icon-muted: var(--text-muted);
 
-  --error-text: #f44336;
-  --icon-muted: var(--text-muted);
-
-  /* ── Sidenav Gradients ──────────────────────────── */
-  --sidenav-patient-start: #1d4ed8;
-  --sidenav-patient-end: #1e40af;
-  --sidenav-doctor-start: #15803d;
-  --sidenav-doctor-end: #166534;
-  --sidenav-admin-start: #b91c1c;
-  --sidenav-admin-end: #991b1b;
-}
-
-/* ══════════════════════════════════════════════════════
-   BASE
-══════════════════════════════════════════════════════ */
-html,
-body {
-  height: 100%;
-  margin: 0;
-}
-
-body {
-  font-family: 'Inter', Roboto, 'Helvetica Neue', sans-serif;
-  color: var(--text-primary);
-  background: var(--bg-app);
-}
-
-* { box-sizing: border-box; }
-
-html {
-  @include mat.theme((
-    color: (
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
-    ),
-    typography: 'Inter',
-  ));
-}
-
-/* ══════════════════════════════════════════════════════
-   TYPOGRAPHY UTILITIES
-══════════════════════════════════════════════════════ */
-.page-title {
-  margin: 0 0 4px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 26px;
-  font-weight: 800;
-  color: var(--text-primary);
-}
-
-.page-sub {
-  margin: 0 0 24px;
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--text-secondary);
-}
-
-.page-subtitle { @extend .page-sub; }
-
-/* ══════════════════════════════════════════════════════
-   SHARED BUTTONS
-══════════════════════════════════════════════════════ */
-
-/* Green — patient / global default */
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  height: 38px;
-  border: 1px solid var(--brand-green);
-  border-radius: var(--radius-md);
-  padding: 0 14px;
-  background: var(--brand-green);
-  color: #fff;
-  text-decoration: none;
-  font-family: 'Inter', sans-serif;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
-
-  &:hover:not(:disabled) {
-    transform: translateY(-1px);
-    background: var(--brand-green-dark);
-    border-color: var(--brand-green-dark);
+    /* ── Sidenav Gradients ──────────────────────────── */
+    --sidenav-patient-start: #1d4ed8;
+    --sidenav-patient-end: #1e40af;
+    --sidenav-doctor-start: #4f46e5;
+    --sidenav-doctor-end: #3730a3;
+    --sidenav-admin-start: #b91c1c;
+    --sidenav-admin-end: #991b1b;
   }
 
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
+  /* ══════════════════════════════════════════════════════
+    BASE
+  ══════════════════════════════════════════════════════ */
+  html,
+  body {
+    height: 100%;
+    margin: 0;
   }
-}
 
-/* Indigo — doctor schedule / portal actions */
-.btn-brand {
-  @extend .btn-primary;
-  border-color: var(--brand);
-  background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
-  box-shadow: 0 4px 12px var(--brand-shadow);
-
-  &:hover:not(:disabled) {
-    background: linear-gradient(135deg, var(--brand-dark) 0%, #3730a3 100%);
-    border-color: var(--brand-dark);
-    box-shadow: 0 6px 16px rgba(99, 102, 241, 0.30);
+  body {
+    font-family: 'Inter', Roboto, 'Helvetica Neue', sans-serif;
+    color: var(--text-primary);
+    background: var(--bg-app);
   }
-}
 
-.btn-large {
-  height: 48px;
-  padding: 0 24px;
-  font-size: 14px;
-  border-radius: var(--radius-lg);
-}
+  * { box-sizing: border-box; }
 
-/* Icon-only delete button */
-.btn-icon-delete {
-  width: 34px;
-  height: 34px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--radius-sm);
-  border: none;
-  background: transparent;
-  color: var(--text-muted);
-  cursor: pointer;
-  transition: background 0.18s ease, color 0.18s ease;
-
-  &:hover {
-    background: var(--brand-red-soft);
-    color: var(--brand-red-text);
+  html {
+    @include mat.theme((
+      color: (
+        primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      typography: 'Inter',
+    ));
   }
-}
 
-/* ══════════════════════════════════════════════════════
-   SHARED CARDS
-══════════════════════════════════════════════════════ */
-.surface-card {
-  background: var(--bg-surface);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
-}
-
-/* Section card — used in schedule + appointments + profile */
-.section-card {
-  padding: 20px;
-  border-radius: var(--radius-2xl);
-  background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
-  border: 1px solid var(--border-subtle);
-  box-shadow: var(--shadow-sm);
-  margin-bottom: 24px;
-}
-
-.section-head {
-  margin-bottom: 20px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--border-subtle);
-
-  h3 {
-    margin: 0 0 6px;
+  /* ══════════════════════════════════════════════════════
+    TYPOGRAPHY UTILITIES
+  ══════════════════════════════════════════════════════ */
+  .page-title {
+    margin: 0 0 4px;
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 18px;
+    font-size: 26px;
     font-weight: 800;
-    letter-spacing: -0.02em;
     color: var(--text-primary);
   }
-}
 
-.section-sub {
-  margin: 0;
-  font-size: 13px;
-  color: var(--text-secondary);
-  line-height: 1.5;
-}
+  .page-sub {
+    margin: 0 0 24px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
 
-/* ══════════════════════════════════════════════════════
-   SHARED STATES
-══════════════════════════════════════════════════════ */
-.loading-block,
-.loading-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 56px 0;
-}
+  .page-subtitle { @extend .page-sub; }
 
-.empty-block {
-  text-align: center;
-  color: var(--text-secondary);
-  padding: 56px 24px;
-}
+  /* ══════════════════════════════════════════════════════
+    SHARED BUTTONS
+  ══════════════════════════════════════════════════════ */
 
-.empty-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 40px 20px;
-  text-align: center;
-}
+  /* Blue — patient portal */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 38px;
+    border: 1px solid var(--brand-blue);
+    border-radius: var(--radius-md);
+    padding: 0 14px;
+    background: linear-gradient(135deg, var(--brand-blue) 0%, var(--brand-blue-dark) 100%);
+    color: #fff;
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px var(--brand-blue-shadow);
+    transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
 
-.empty-icon {
-  width: 56px;
-  height: 56px;
-  border-radius: var(--radius-xl);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--brand-bg);
-  color: var(--brand);
-  margin-bottom: 16px;
+    &:hover:not(:disabled) {
+      transform: translateY(-1px);
+      background: linear-gradient(135deg, var(--brand-blue-dark) 0%, #0a3d8f 100%);
+      border-color: var(--brand-blue-dark);
+      box-shadow: 0 6px 16px rgba(23, 105, 224, 0.30);
+    }
 
-  .material-icons { font-size: 28px; }
-}
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
 
-.empty-text {
-  margin: 0;
-  font-size: 13px;
-  color: var(--text-secondary);
-  max-width: 380px;
-  line-height: 1.6;
-}
+  /* Indigo — doctor portal */
+  .btn-brand {
+    @extend .btn-primary;
+    border-color: var(--brand);
+    background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
+    box-shadow: 0 4px 12px var(--brand-shadow);
 
-/* ══════════════════════════════════════════════════════
-   STATUS PILLS
-══════════════════════════════════════════════════════ */
-.status-pill {
-  display: inline-flex;
-  align-items: center;
-  padding: 4px 12px;
-  border-radius: 100px;
-  font-size: 11px;
-  font-weight: 700;
-  white-space: nowrap;
-  text-transform: capitalize;
-}
+    &:hover:not(:disabled) {
+      background: linear-gradient(135deg, var(--brand-dark) 0%, #3730a3 100%);
+      border-color: var(--brand-dark);
+      box-shadow: 0 6px 16px rgba(99, 102, 241, 0.30);
+    }
+  }
 
-.status-pill--pending    { background: var(--status-pending-bg);    color: var(--status-pending-text); }
-.status-pill--confirmed  { background: var(--status-confirmed-bg);  color: var(--status-confirmed-text); }
-.status-pill--cancelled  { background: var(--status-cancelled-bg);  color: var(--status-cancelled-text); }
-.status-pill--available  { background: var(--brand-green-soft);     color: var(--brand-green-text); }
-.status-pill--booked     { background: var(--brand-red-soft);       color: var(--brand-red-text); }
+  /* Neutral outline — secondary actions */
+  .btn-secondary-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 38px;
+    padding: 0 14px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-strong);
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease, color 0.18s ease;
 
-/* ══════════════════════════════════════════════════════
-   FILTER / TOOLBAR PILLS
-══════════════════════════════════════════════════════ */
-.control-pill {
-  padding: 8px 16px;
-  border-radius: 999px;
-  border: 1px solid var(--border-subtle);
-  background: var(--bg-surface);
-  color: var(--text-primary);
-  font-size: 12px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+    &:hover:not(:disabled) {
+      transform: translateY(-1px);
+      border-color: var(--brand-blue);
+      color: var(--brand-blue);
+      background: var(--brand-blue-bg);
+    }
 
-  &:hover { border-color: var(--brand); color: var(--brand); }
-}
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
 
-.control-pill--active {
-  border-color: transparent;
-  background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
-  color: #fff;
-}
+  /* Size modifier */
+  .btn-large {
+    height: 48px;
+    padding: 0 24px;
+    font-size: 14px;
+    border-radius: var(--radius-lg);
+  }
 
-/* ══════════════════════════════════════════════════════
-   STAT PILLS
-══════════════════════════════════════════════════════ */
-.stat-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 14px;
-  background: var(--bg-subtle);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border-subtle);
-  font-size: 12px;
-  font-weight: 700;
-}
+  /* Icon-only delete */
+  .btn-icon-delete {
+    width: 34px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: background 0.18s ease, color 0.18s ease;
 
-.stat-pill--available { background: var(--brand-green-soft); color: var(--brand-green-text); }
-.stat-pill--booked    { background: var(--brand-red-soft);   color: var(--brand-red-text); }
+    &:hover {
+      background: var(--brand-red-soft);
+      color: var(--brand-red-text);
+    }
+  }
 
-/* ══════════════════════════════════════════════════════
-   SNACKBAR
-══════════════════════════════════════════════════════ */
-.success-snackbar {
-  background: #4caf50 !important;
-  color: #fff !important;
-}
+  /* ══════════════════════════════════════════════════════
+    SHARED CARDS
+  ══════════════════════════════════════════════════════ */
+  .surface-card {
+    background: var(--bg-surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+  }
 
-/* ══════════════════════════════════════════════════════
-   MATERIAL OVERRIDES
-══════════════════════════════════════════════════════ */
-.mat-mdc-form-field .mat-mdc-text-field-wrapper.mdc-text-field--outlined {
-  border-radius: var(--radius-md);
-}
+  .section-card {
+    padding: 20px;
+    border-radius: var(--radius-2xl);
+    background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 24px;
+  }
 
-.mat-mdc-form-field .mdc-notched-outline__leading {
-  border-radius: var(--radius-md) 0 0 var(--radius-md);
-}
+  .section-head {
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-subtle);
 
-.mat-mdc-form-field .mdc-notched-outline__trailing {
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
-}
+    h3 {
+      margin: 0 0 6px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+    }
+  }
 
-.mat-mdc-dialog-container .mdc-dialog__surface {
-  border-radius: var(--radius-xl) !important;
-}
+  .section-sub {
+    margin: 0;
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  /* ══════════════════════════════════════════════════════
+    SHARED STATES
+  ══════════════════════════════════════════════════════ */
+  .loading-block,
+  .loading-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 56px 0;
+  }
+
+  .empty-block {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: 56px 24px;
+  }
+
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    text-align: center;
+  }
+
+  .empty-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--brand-bg);
+    color: var(--brand);
+    margin-bottom: 16px;
+
+    .material-icons { font-size: 28px; }
+  }
+
+  .empty-text {
+    margin: 0;
+    font-size: 13px;
+    color: var(--text-secondary);
+    max-width: 380px;
+    line-height: 1.6;
+  }
+
+  /* ══════════════════════════════════════════════════════
+    STATUS PILLS
+  ══════════════════════════════════════════════════════ */
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+    text-transform: capitalize;
+  }
+
+  .status-pill--pending    { background: var(--status-pending-bg);    color: var(--status-pending-text); }
+  .status-pill--confirmed  { background: var(--status-confirmed-bg);  color: var(--status-confirmed-text); }
+  .status-pill--cancelled  { background: var(--status-cancelled-bg);  color: var(--status-cancelled-text); }
+  .status-pill--available  { background: #e8f5e9;                     color: #2e7d32; }
+  .status-pill--booked     { background: var(--brand-red-soft);       color: var(--brand-red-text); }
+
+  /* ══════════════════════════════════════════════════════
+    FILTER / TOOLBAR PILLS
+  ══════════════════════════════════════════════════════ */
+  .control-pill {
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+
+    &:hover { border-color: var(--brand); color: var(--brand); }
+  }
+
+  .control-pill--active {
+    border-color: transparent;
+    background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
+    color: #fff;
+  }
+
+  /* ══════════════════════════════════════════════════════
+    STAT PILLS
+  ══════════════════════════════════════════════════════ */
+  .stat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    background: var(--bg-subtle);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-subtle);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .stat-pill--available { background: #e8f5e9; color: #2e7d32; }
+  .stat-pill--booked    { background: var(--brand-red-soft); color: var(--brand-red-text); }
+
+  /* ══════════════════════════════════════════════════════
+    SNACKBAR
+  ══════════════════════════════════════════════════════ */
+  .success-snackbar {
+    background: #4caf50 !important;
+    color: #fff !important;
+  }
+
+  /* ══════════════════════════════════════════════════════
+    MATERIAL OVERRIDES
+  ══════════════════════════════════════════════════════ */
+  .mat-mdc-form-field .mat-mdc-text-field-wrapper.mdc-text-field--outlined {
+    border-radius: var(--radius-md);
+  }
+
+  .mat-mdc-form-field .mdc-notched-outline__leading {
+    border-radius: var(--radius-md) 0 0 var(--radius-md);
+  }
+
+  .mat-mdc-form-field .mdc-notched-outline__trailing {
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  }
+
+  .mat-mdc-dialog-container .mdc-dialog__surface {
+    border-radius: var(--radius-xl) !important;
+  }

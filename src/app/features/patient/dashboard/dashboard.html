@@ -12,11 +12,11 @@
           </p>
 
           <div class="hero-actions">
-            <a class="btn-primary" routerLink="/patient/doctors">
+            <a class="btn-primary btn-large" routerLink="/patient/doctors">
               <span class="material-icons action-icon" aria-hidden="true">event_available</span>
               Book Appointment
             </a>
-            <a class="btn-secondary" routerLink="/patient/bookings">
+            <a class="btn-secondary-outline btn-large" routerLink="/patient/bookings">
               <span class="material-icons action-icon" aria-hidden="true">calendar_month</span>
               View My Bookings
             </a>
@@ -24,15 +24,12 @@
         </div>
       </div>
 
-      <!-- ═══════════════════════════════ OVERVIEW CARD ═══════════════════════════════ -->
       <div class="dashboard-preview">
-        <!-- Header -->
         <div class="dp-header">
           <div class="dp-title">Your Activity</div>
           <div class="dp-date">{{ getTodayDate() }}</div>
         </div>
 
-        <!-- Stats row -->
         <div class="dp-stats">
           <div class="dp-stat">
             <div class="stat-value">{{ bookings.length }}</div>
