@@ -211,9 +211,9 @@ $max-width:     1200px;
   position: relative;
   padding: 140px 0 80px;
   overflow: hidden;
-  min-height: 100svh; // ✅ svh أحسن من vh على الموبايل
   display: flex;
   align-items: center;
+  // ✅ لا min-height ثابت — كل واحد يتحكم في الـ breakpoint بتاعه
 }
 
 .hero-bg-grid {
@@ -225,7 +225,6 @@ $max-width:     1200px;
   background-size: 48px 48px;
   opacity: 0.4;
   pointer-events: none;
-  // ✅ mask بيخلي الـ grid يختفي تدريجياً تحت الكارت
   -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
   mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
 }
@@ -314,6 +313,8 @@ $max-width:     1200px;
 .hero-visual {
   position: relative;
   z-index: 1;
+  // ✅ منع أي overflow يتعدى الـ grid cell
+  min-width: 0;
 }
 
 .dashboard-preview {
@@ -324,6 +325,9 @@ $max-width:     1200px;
   padding: 20px;
   position: relative;
   animation: float 6s ease-in-out infinite;
+  // ✅ مهم — منع الكارت من الاتساع أكتر من الـ parent
+  width: 100%;
+  box-sizing: border-box;
 }
 
 @keyframes float {
@@ -612,16 +616,32 @@ $max-width:     1200px;
   &.reveal-delay { --delay: 120ms; }
 }
 
-// ─── Responsive ────────────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════════════
+// RESPONSIVE
+// ══════════════════════════════════════════════════════════════════════
+
+// ─── Tablet landscape (≤1024px) ────────────────────────────────────────────
 @media (max-width: 1024px) {
   .features-grid { grid-template-columns: repeat(2, 1fr); }
   .steps-row { grid-template-columns: repeat(2, 1fr); &::before { display: none; } }
+
+  // ✅ Badges قريبين من الكارت وما يتعدوش
+  .float-badge {
+    &--1 { top: -12px; left: -10px; }
+    &--2 { bottom: 16px; right: -10px; }
+  }
 }
 
+// ─── Tablet portrait / large mobile (≤992px) ───────────────────────────────
 @media (max-width: 992px) {
   .nav-links, .nav-ctas { display: none; }
   .hamburger { display: flex; }
   .mobile-menu { display: flex; }
+
+  .hero {
+    padding: 100px 0 64px;
+    align-items: flex-start;
+  }
 
   .hero-inner {
     grid-template-columns: 1fr;
@@ -633,28 +653,60 @@ $max-width:     1200px;
     .trust-micro { justify-content: center; }
   }
 
-  // ✅ الكارت يجي تحت النص مش فوقه
-  .hero-visual { order: 1; }
+  .hero-visual {
+    order: 1;
+    // ✅ احنا داخل container — الكارت محتاج padding عشان الـ badges ما تتقطعش
+    padding: 20px 28px 28px;
+  }
+
   .hero-content { order: 0; }
-  .dashboard-preview { max-width: 380px; margin: 0 auto; }
+
+  .dashboard-preview {
+    max-width: 440px;
+    margin: 0 auto;
+  }
+
+  // ✅ Badges في نطاق الـ padding — مش بره الشاشة
+  .float-badge {
+    &--1 { top: 4px;  left: 4px; }
+    &--2 { bottom: 4px; right: 4px; }
+  }
 
   .trust-grid { grid-template-columns: 1fr; gap: 40px; }
   .footer-inner { flex-direction: column; gap: 32px; }
   .footer-links { flex-wrap: wrap; gap: 32px; }
 }
 
+// ─── Mobile (≤640px) ───────────────────────────────────────────────────────
 @media (max-width: 640px) {
   .hero {
-    padding: 100px 0 60px; // ✅ padding أقل على الموبايل
-    min-height: auto;
+    padding: 88px 0 48px;
     align-items: flex-start;
   }
 
-  .hero-bg-grid { opacity: 0.25; } // ✅ أخف على الموبايل
+  .hero-bg-grid { opacity: 0.2; }
+  .hero-glow { width: 300px; height: 300px; top: -60px; right: -60px; }
 
-  .hero-headline { font-size: clamp(26px, 7vw, 36px); }
-
+  .hero-headline { font-size: clamp(24px, 7vw, 34px); }
   .hero-sub { font-size: 15px; }
+
+  .hero-visual {
+    padding: 16px 16px 20px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .dashboard-preview {
+    max-width: 100%;
+    padding: 14px;
+    border-radius: 16px;
+  }
+
+  // ✅ إخفاء آخر booking عشان الكارت ما يطول جداً
+  .dp-bookings .dp-booking:last-child { display: none; }
+
+  // ✅ إخفاء badges على الموبايل — بيسببوا overflow
+  .float-badge { display: none; }
 
   .section { padding: 56px 0; }
   .section-header { margin-bottom: 36px; }
@@ -662,19 +714,12 @@ $max-width:     1200px;
   .features-grid { grid-template-columns: 1fr; }
   .steps-row { grid-template-columns: 1fr; }
 
-  .hero-cta-group { flex-direction: column; align-items: stretch; }
+  .hero-cta-group {
+    flex-direction: column;
+    align-items: stretch;
 
-  // ✅ الكارت أصغر على الموبايل
-  .dashboard-preview {
-    max-width: 100%;
-    padding: 16px;
-    border-radius: 16px;
-
-    // ✅ إخفاء بعض العناصر عشان الكارت متزدحمش
-    .dp-bookings .dp-booking:last-child { display: none; }
+    .btn-primary, .btn-ghost { width: 100%; }
   }
-
-  .float-badge { display: none; }
 
   .cta-card { padding: 24px 20px; }
 
@@ -684,15 +729,25 @@ $max-width:     1200px;
   .container { padding: 0 16px; }
 }
 
+// ─── Small mobile (≤400px) ────────────────────────────────────────────────
 @media (max-width: 400px) {
-  .hero-headline { font-size: 24px; }
-  .hero { padding: 90px 0 48px; }
+  .hero { padding: 80px 0 40px; }
+  .hero-headline { font-size: 22px; }
+
   .dashboard-preview {
+    padding: 12px;
+
     .dp-stats { gap: 6px; }
     .stat-value { font-size: 16px; }
+    // ✅ إخفاء قسم Available Doctors عشان المساحة
+    .dp-section-label:last-of-type,
+    .dp-doctors { display: none; }
   }
+
+  .btn-lg { padding: 13px 20px; font-size: 14px; }
 }
 
+// ─── Reduced motion ───────────────────────────────────────────────────────
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
   .dashboard-preview, .hero-glow, .float-badge, .pulse-once { animation: none; }
