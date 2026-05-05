@@ -1,59 +1,187 @@
-# RiayaFrontend
+# 🖥️ Riaya Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.2.
+A modern Angular frontend for **Riaya**, a healthcare management system that connects patients, doctors, and administrators in one role-based platform.
 
-## Development server
+Riaya Frontend integrates with an **ASP.NET Core backend API** to support secure authentication, appointment booking, doctor management, and online payments through Paymob.
 
-To start a local development server, run:
+---
 
-```bash
+## 📌 Project Overview
+
+Riaya Frontend is the client-side application for a healthcare system designed to streamline medical booking workflows. The application provides separate experiences for **Admin**, **Doctor**, and **Patient** users, with protected routes, JWT-based authentication, API-driven data, and a clean dashboard-based interface.
+
+The project is structured using modern Angular practices such as standalone components, lazy-loaded routes, route guards, HTTP interceptors, and reusable shared services.
+
+---
+
+## 🎯 Purpose
+
+This project demonstrates building a **scalable and production-ready Angular frontend** for real-world healthcare workflows, including authentication, booking systems, and payment integration.
+
+---
+
+## ✨ Features
+
+* 🔐 Authentication & Authorization (JWT-based)
+* 👥 Role-based dashboards (Admin / Doctor / Patient)
+* 📅 Appointment booking system
+* 🩺 Doctor listing and profiles
+* 💳 Payment integration (Paymob)
+* ⚡ Responsive UI design
+* 🔄 API integration with backend
+* 🚦 Route guards & protected routes
+
+---
+
+## 🧠 Key Concepts Applied
+
+* Standalone Angular Components
+* Lazy-loaded Routes
+* Reactive Forms
+* RxJS & State Handling
+* HTTP Interceptors
+* Route Guards
+* Dependency Injection
+* Environment-based API configuration
+
+---
+
+## 🛠 Tech Stack
+
+* Angular
+* TypeScript
+* SCSS
+* RxJS
+* Angular Router
+* Angular Material
+* REST API Integration
+
+---
+
+## 📁 Project Structure
+
+```id="7zx4qx"
+src/
+├── app/
+│   ├── core/
+│   │   ├── guards/
+│   │   ├── interceptors/
+│   │   └── services/
+│   ├── features/
+│   │   ├── admin/
+│   │   ├── auth/
+│   │   ├── doctor/
+│   │   ├── landing/
+│   │   └── patient/
+│   ├── shared/
+│   │   ├── layout/
+│   │   └── models/
+│   ├── app.config.ts
+│   └── app.routes.ts
+└── environments/
+    └── environment.ts
+```
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the Repository
+
+```id="o84eoz"
+git clone https://github.com/mohamedfaresss/Riaya
+cd Riaya
+```
+
+---
+
+### 2. Install Dependencies
+
+```id="kg6n02"
+npm install
+```
+
+---
+
+### 3. Configure the Backend API URL
+
+Update the API URL in:
+
+```id="rnpbwt"
+src/environments/environment.ts
+```
+
+Example:
+
+```ts id="z6imdn"
+export const environment = {
+  production: false,
+  apiUrl: 'https://your-backend-api-url/api'
+};
+```
+
+> ⚠️ Do not commit private API URLs, secrets, or production credentials.
+
+---
+
+### 4. Run the Application
+
+```id="3nt0yw"
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Open:
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+```id="d06n34"
+http://localhost:4200
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## 📚 API Testing
 
-## Building
+You can test the application using:
 
-To build the project run:
+* Angular development server
+* Swagger (from backend)
+* Postman
 
-```bash
-ng build
-```
+---
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## 🔗 Backend Connection
 
-## Running unit tests
+This frontend integrates with the backend API:
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+👉 https://github.com/mohamedfaresss/Riaya-Backend-
 
-```bash
-ng test
-```
+Make sure the backend is running before testing features.
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+## 🌐 Future Improvements
 
-```bash
-ng e2e
-```
+* Add state management (NgRx)
+* Improve UI/UX design
+* Add unit and integration tests
+* Optimize performance
+* Add PWA support
+* Add localization (Arabic / English)
+* Improve payment UI feedback
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+---
 
-## Additional Resources
+## 🌐 Live Demo (Optional)
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Frontend:
+https://your-frontend-url
+
+Backend:
+https://your-backend-url
+
+---
+
+## 👨‍💻 Author
+
+**Mohamed Gamal Fares**
+Frontend & Backend Developer
+[LinkedIn](https://www.linkedin.com/in/mohamed-gamal-fares/)
