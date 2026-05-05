@@ -6,6 +6,16 @@ Riaya Frontend integrates with an **ASP.NET Core backend API** to support secure
 
 ---
 
+## 🌐 Live Demo
+
+Frontend:
+https://mohamedfaresss.github.io/Riaya/
+
+Backend API:
+https://github.com/mohamedfaresss/Riaya-Backend-
+
+---
+
 ## 📌 Project Overview
 
 Riaya Frontend is the client-side application for a healthcare system designed to streamline medical booking workflows. The application provides separate experiences for **Admin**, **Doctor**, and **Patient** users, with protected routes, JWT-based authentication, API-driven data, and a clean dashboard-based interface.
@@ -60,7 +70,7 @@ This project demonstrates building a **scalable and production-ready Angular fro
 
 ## 📁 Project Structure
 
-```id="7zx4qx"
+```
 src/
 ├── app/
 │   ├── core/
@@ -88,7 +98,7 @@ src/
 
 ### 1. Clone the Repository
 
-```id="o84eoz"
+```
 git clone https://github.com/mohamedfaresss/Riaya
 cd Riaya
 ```
@@ -97,7 +107,7 @@ cd Riaya
 
 ### 2. Install Dependencies
 
-```id="kg6n02"
+```
 npm install
 ```
 
@@ -105,34 +115,32 @@ npm install
 
 ### 3. Configure the Backend API URL
 
-Update the API URL in:
+Update:
 
-```id="rnpbwt"
+```
 src/environments/environment.ts
 ```
 
 Example:
 
-```ts id="z6imdn"
+```ts
 export const environment = {
   production: false,
   apiUrl: 'https://your-backend-api-url/api'
 };
 ```
 
-> ⚠️ Do not commit private API URLs, secrets, or production credentials.
-
 ---
 
 ### 4. Run the Application
 
-```id="3nt0yw"
+```
 ng serve
 ```
 
 Open:
 
-```id="d06n34"
+```
 http://localhost:4200
 ```
 
@@ -140,43 +148,26 @@ http://localhost:4200
 
 ## 📚 API Testing
 
-You can test the application using:
-
-* Angular development server
-* Swagger (from backend)
+* Swagger (Backend)
 * Postman
+* Browser Dev Tools
 
 ---
 
-## 🔗 Backend Connection
-
-This frontend integrates with the backend API:
+## 🔗 Backend Repository
 
 👉 https://github.com/mohamedfaresss/Riaya-Backend-
-
-Make sure the backend is running before testing features.
 
 ---
 
 ## 🌐 Future Improvements
 
-* Add state management (NgRx)
-* Improve UI/UX design
-* Add unit and integration tests
+* Add NgRx state management
+* Improve UI/UX
+* Add unit & integration tests
 * Optimize performance
 * Add PWA support
 * Add localization (Arabic / English)
-* Improve payment UI feedback
-
----
-
-## 🌐 Live Demo (Optional)
-
-Frontend:
-https://your-frontend-url
-
-Backend:
-https://your-backend-url
 
 ---
 
@@ -184,4 +175,4 @@ https://your-backend-url
 
 **Mohamed Gamal Fares**
 Frontend & Backend Developer
-[LinkedIn](https://www.linkedin.com/in/mohamed-gamal-fares/)
+https://www.linkedin.com/in/mohamed-gamal-fares/
